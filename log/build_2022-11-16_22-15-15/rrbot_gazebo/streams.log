@@ -1,0 +1,68 @@
+[0.067s] Invoking command in '/home/parth/Desktop/ros2_ws/build/rrbot_gazebo': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:/opt/ros/humble /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_gazebo -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/install/rrbot_gazebo
+[0.158s] -- The C compiler identification is GNU 11.3.0
+[0.250s] -- The CXX compiler identification is GNU 11.3.0
+[0.263s] -- Detecting C compiler ABI info
+[0.354s] -- Detecting C compiler ABI info - done
+[0.371s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.371s] -- Detecting C compile features
+[0.372s] -- Detecting C compile features - done
+[0.379s] -- Detecting CXX compiler ABI info
+[0.476s] -- Detecting CXX compiler ABI info - done
+[0.495s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.495s] -- Detecting CXX compile features
+[0.496s] -- Detecting CXX compile features - done
+[0.500s] -- Found ament_cmake: 1.3.2 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.702s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.6") found components: Interpreter 
+[0.825s] -- Found rclcpp: 16.0.1 (/opt/ros/humble/share/rclcpp/cmake)
+[0.883s] -- Found rosidl_generator_c: 3.1.3 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.887s] -- Found rosidl_adapter: 3.1.3 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.893s] -- Found rosidl_generator_cpp: 3.1.3 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.903s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.918s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.972s] -- Found rmw_implementation_cmake: 6.1.0 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.974s] -- Found rmw_fastrtps_cpp: 6.2.1 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.076s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.111s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.149s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.284s] -- Found controller_manager_msgs: 2.16.0 (/opt/ros/humble/share/controller_manager_msgs/cmake)
+[1.413s] -- Configuring done
+[1.421s] -- Generating done
+[1.422s] -- Build files have been written to: /home/parth/Desktop/ros2_ws/build/rrbot_gazebo
+[1.429s] Invoked command in '/home/parth/Desktop/ros2_ws/build/rrbot_gazebo' returned '0': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:/opt/ros/humble /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_gazebo -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/install/rrbot_gazebo
+[1.431s] Invoking command in '/home/parth/Desktop/ros2_ws/build/rrbot_gazebo': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/build/rrbot_gazebo -- -j16 -l16
+[1.486s] [ 25%] [32mBuilding CXX object CMakeFiles/publisher.dir/src/position_publisher.cpp.o[0m
+[1.490s] [ 50%] [32mBuilding CXX object CMakeFiles/switch.dir/src/controller_switch.cpp.o[0m
+[4.129s] [ 75%] [32m[1mLinking CXX executable switch[0m
+[4.514s] [ 75%] Built target switch
+[4.759s] [100%] [32m[1mLinking CXX executable publisher[0m
+[4.937s] [100%] Built target publisher
+[4.954s] Invoked command in '/home/parth/Desktop/ros2_ws/build/rrbot_gazebo' returned '0': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/build/rrbot_gazebo -- -j16 -l16
+[4.990s] Invoking command in '/home/parth/Desktop/ros2_ws/build/rrbot_gazebo': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/build/rrbot_gazebo
+[4.994s] -- Install configuration: ""
+[4.995s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/publisher
+[4.996s] -- Set runtime path of "/home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/publisher" to ""
+[4.996s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/switch
+[4.996s] -- Set runtime path of "/home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/switch" to ""
+[4.996s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/launch
+[4.996s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/launch/rrbot_world.launch.py
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/worlds
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/worlds/rrbot.world
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/config
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/config/gazebo_controllers.yaml
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/config/controllers.yaml
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/ament_index/resource_index/package_run_dependencies/rrbot_gazebo
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/ament_index/resource_index/parent_prefix_path/rrbot_gazebo
+[4.997s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/environment/ament_prefix_path.sh
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/environment/ament_prefix_path.dsv
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/environment/path.sh
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/environment/path.dsv
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/local_setup.bash
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/local_setup.sh
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/local_setup.zsh
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/local_setup.dsv
+[4.998s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/package.dsv
+[5.017s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/ament_index/resource_index/packages/rrbot_gazebo
+[5.017s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/cmake/rrbot_gazeboConfig.cmake
+[5.017s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/cmake/rrbot_gazeboConfig-version.cmake
+[5.017s] -- Installing: /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/package.xml
+[5.021s] Invoked command in '/home/parth/Desktop/ros2_ws/build/rrbot_gazebo' returned '0': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/install/rrbot_description:/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/build/rrbot_gazebo
