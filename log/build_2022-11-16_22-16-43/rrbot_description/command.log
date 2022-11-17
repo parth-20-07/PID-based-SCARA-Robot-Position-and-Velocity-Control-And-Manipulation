@@ -1,4 +1,0 @@
-Invoking command in '/home/parth/Desktop/ros2_ws/build/rrbot_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/build/rrbot_description -- -j16 -l16
-Invoked command in '/home/parth/Desktop/ros2_ws/build/rrbot_description' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/build/rrbot_description -- -j16 -l16
-Invoking command in '/home/parth/Desktop/ros2_ws/build/rrbot_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/build/rrbot_description
-Invoked command in '/home/parth/Desktop/ros2_ws/build/rrbot_description' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/build/rrbot_description
