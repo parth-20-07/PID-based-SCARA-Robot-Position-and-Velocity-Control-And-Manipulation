@@ -14,18 +14,21 @@
     <!-- Link 2 -->
     <xacro:property name="link2_length" value="1" />
     <!-- Link 3 -->
-    <xacro:property name="link3_length" value="1" />
+    <xacro:property name="link3_length" value="1.2" />
     <!-- Link 4 -->
     <xacro:property name="camera_link" value="0.05" />
     <!-- Size of square 'camera' box -->
     <xacro:property name="axel_offset" value="0.05" />
     <!-- Space btw top of beam and the each joint -->
 
-    <!-- Joint 0: Fixed -->
-    <joint name="${prefix}base_joint" type="fixed">
+    <!-- Joint 1: Revolute -->
+    <joint name="${prefix}joint1" type="continuous">
       <xacro:insert_block name="origin" />
       <parent link="${parent}"/>
       <child link="${prefix}base_link" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <dynamics damping="0.7"/>
     </joint>
 
     <!-- Base Link -->
@@ -52,26 +55,25 @@
       </inertial>
     </link>
 
-    <!-- Joint 1: Revolute -->
-    <joint name="${prefix}joint1" type="continuous">
+
+    <!-- Joint 1.5: Fixed -->
+    <joint name="${prefix}fixed_joint" type="fixed">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}link1"/>
       <origin xyz="0 0 ${base_link_length}" rpy="0 0 0"/>
-      <axis xyz="0 0 1"/>
-      <dynamics damping="0.7"/>
     </joint>
 
     <!-- Link 1 -->
     <link name="${prefix}link1">
       <collision>
-        <origin xyz="0 0 ${link1_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link1_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 1.5708 0"/>
         <geometry>
           <box size="${width} ${width} ${link1_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${link1_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link1_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 1.5708 0"/>
         <geometry>
           <box size="${width} ${width} ${link1_length}"/>
         </geometry>
@@ -79,7 +81,7 @@
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${link1_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link1_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 1.5708 0"/>
         <mass value="${mass}"/>
         <inertia ixx="${mass / 12.0 * (width*width + link1_length*link1_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link1_length*link1_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
@@ -89,22 +91,22 @@
     <joint name="${prefix}joint2" type="continuous">
       <parent link="${prefix}link1"/>
       <child link="${prefix}link2"/>
-      <origin xyz="0 ${width} ${link1_length - axel_offset*2}" rpy="0 0 0"/>
-      <axis xyz="1 0 0"/>
+      <origin xyz="${link1_length - 2*axel_offset} 0 ${2*axel_offset}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
       <dynamics damping="0.7"/>
     </joint>
 
     <!-- Link 2 -->
     <link name="${prefix}link2">
       <collision>
-        <origin xyz="0 0 ${link2_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link2_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 1.5708 0"/>
         <geometry>
           <box size="${width} ${width} ${link2_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${link2_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link2_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 1.5708 0"/>
         <geometry>
           <box size="${width} ${width} ${link2_length}"/>
         </geometry>
@@ -112,7 +114,7 @@
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${link2_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link2_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 1.5708 0"/>
         <mass value="${mass}"/>
         <inertia ixx="${mass / 12.0 * (width*width + link2_length*link2_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link2_length*link2_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
@@ -123,22 +125,22 @@
       <limit effort="50" lower="0" upper="${link3_length - 2*axel_offset}" velocity="10"/>
       <parent link="${prefix}link2"/>
       <child link="${prefix}link3"/>
-      <origin xyz="0 ${width} ${link2_length - axel_offset*2}" rpy="0 1.5703 0"/>
-      <axis xyz="0 0 -1"/>
+      <origin xyz="${link2_length - axel_offset} 0 ${axel_offset}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
       <dynamics damping="0.7"/>
     </joint>
 
     <!-- Link 3 -->
     <link name="${prefix}link3">
       <collision>
-        <origin xyz="0 0 ${link3_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
         <geometry>
           <box size="${width} ${width} ${link3_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${link3_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
         <geometry>
           <box size="${width} ${width} ${link3_length}"/>
         </geometry>
@@ -146,7 +148,7 @@
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${link3_length/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
         <mass value="${mass}"/>
         <inertia ixx="${mass / 12.0 * (width*width + link3_length*link3_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link3_length*link3_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
