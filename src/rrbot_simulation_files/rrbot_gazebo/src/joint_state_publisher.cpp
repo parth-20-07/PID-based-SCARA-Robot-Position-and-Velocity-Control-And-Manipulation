@@ -47,12 +47,17 @@ void add(const std::shared_ptr<custom_interfaces::srv::FindJointStates::Request>
     q1_2 = get_q1(q2_2);
 
     // allocating the joint values to the server response
-    response->q1 = round(q1_1 * 100) / 100;
-    response->q2 = round(q2_1 * 100) / 100;
-    response->q3 = round(q3 * 100) / 100;
+    response->q11 = round(q1_1 * 100) / 100;
+    response->q21 = round(q2_1 * 100) / 100;
+    response->q31 = round(q3 * 100) / 100;
 
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Incoming request\n(x,y,z): ('%f','%f','%f')", request->x, request->y, request->z);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outgoing Response\n(x,y,z): ('%f','%f','%f')", response->q1, response->q2, response->q3);
+    response->q12 = round(q1_2 * 100) / 100;
+    response->q22 = round(q2_2 * 100) / 100;
+    response->q32 = round(q3 * 100) / 100;
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Incoming request (x,y,z): ('%f','%f','%f')", request->x, request->y, request->z);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outgoing Response (q11,q21,q31): ('%f','%f','%f')", response->q11, response->q21, response->q31);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Outgoing Response (q12,q22,q32): ('%f','%f','%f')", response->q12, response->q22, response->q32);
 }
 
 int main(int argc, char **argv)

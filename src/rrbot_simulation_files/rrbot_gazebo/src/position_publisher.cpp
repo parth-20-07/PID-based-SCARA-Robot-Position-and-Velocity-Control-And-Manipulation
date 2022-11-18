@@ -26,10 +26,6 @@ public:
   }
 
 private:
-  void fkin_calculcator(std::vector<std::double_t> j_states)
-  {
-  }
-
   void topic_callback(const sensor_msgs::msg::JointState::SharedPtr msg) const
   {
     std::vector<std::double_t> joint_states = {
