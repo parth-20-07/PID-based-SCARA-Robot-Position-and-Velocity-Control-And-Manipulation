@@ -21,6 +21,7 @@
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>controller_manager_msgs</depend>
+  <depend>custom_interfaces</depend>
   <exec_depend>gazebo_plugins</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo_ros2_control</exec_depend>

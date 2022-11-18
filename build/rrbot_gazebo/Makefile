@@ -198,17 +198,17 @@ rrbot_gazebo_uninstall/fast:
 .PHONY : rrbot_gazebo_uninstall/fast
 
 #=============================================================================
-# Target rules for targets named publisher
+# Target rules for targets named fkin_publisher
 
 # Build rule for target.
-publisher: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 publisher
-.PHONY : publisher
+fkin_publisher: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fkin_publisher
+.PHONY : fkin_publisher
 
 # fast build rule for target.
-publisher/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/build
-.PHONY : publisher/fast
+fkin_publisher/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/build
+.PHONY : fkin_publisher/fast
 
 #=============================================================================
 # Target rules for targets named switch
@@ -222,6 +222,19 @@ switch: cmake_check_build_system
 switch/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/switch.dir/build.make CMakeFiles/switch.dir/build
 .PHONY : switch/fast
+
+#=============================================================================
+# Target rules for targets named ikin_publisher
+
+# Build rule for target.
+ikin_publisher: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ikin_publisher
+.PHONY : ikin_publisher
+
+# fast build rule for target.
+ikin_publisher/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/build
+.PHONY : ikin_publisher/fast
 
 src/controller_switch.o: src/controller_switch.cpp.o
 .PHONY : src/controller_switch.o
@@ -247,12 +260,36 @@ src/controller_switch.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/switch.dir/build.make CMakeFiles/switch.dir/src/controller_switch.cpp.s
 .PHONY : src/controller_switch.cpp.s
 
+src/joint_state_publisher.o: src/joint_state_publisher.cpp.o
+.PHONY : src/joint_state_publisher.o
+
+# target to build an object file
+src/joint_state_publisher.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/src/joint_state_publisher.cpp.o
+.PHONY : src/joint_state_publisher.cpp.o
+
+src/joint_state_publisher.i: src/joint_state_publisher.cpp.i
+.PHONY : src/joint_state_publisher.i
+
+# target to preprocess a source file
+src/joint_state_publisher.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/src/joint_state_publisher.cpp.i
+.PHONY : src/joint_state_publisher.cpp.i
+
+src/joint_state_publisher.s: src/joint_state_publisher.cpp.s
+.PHONY : src/joint_state_publisher.s
+
+# target to generate assembly for a file
+src/joint_state_publisher.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/src/joint_state_publisher.cpp.s
+.PHONY : src/joint_state_publisher.cpp.s
+
 src/position_publisher.o: src/position_publisher.cpp.o
 .PHONY : src/position_publisher.o
 
 # target to build an object file
 src/position_publisher.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/src/position_publisher.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/src/position_publisher.cpp.o
 .PHONY : src/position_publisher.cpp.o
 
 src/position_publisher.i: src/position_publisher.cpp.i
@@ -260,7 +297,7 @@ src/position_publisher.i: src/position_publisher.cpp.i
 
 # target to preprocess a source file
 src/position_publisher.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/src/position_publisher.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/src/position_publisher.cpp.i
 .PHONY : src/position_publisher.cpp.i
 
 src/position_publisher.s: src/position_publisher.cpp.s
@@ -268,7 +305,7 @@ src/position_publisher.s: src/position_publisher.cpp.s
 
 # target to generate assembly for a file
 src/position_publisher.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/src/position_publisher.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/src/position_publisher.cpp.s
 .PHONY : src/position_publisher.cpp.s
 
 # Help Target
@@ -286,11 +323,15 @@ help:
 	@echo "... test"
 	@echo "... rrbot_gazebo_uninstall"
 	@echo "... uninstall"
-	@echo "... publisher"
+	@echo "... fkin_publisher"
+	@echo "... ikin_publisher"
 	@echo "... switch"
 	@echo "... src/controller_switch.o"
 	@echo "... src/controller_switch.i"
 	@echo "... src/controller_switch.s"
+	@echo "... src/joint_state_publisher.o"
+	@echo "... src/joint_state_publisher.i"
+	@echo "... src/joint_state_publisher.s"
 	@echo "... src/position_publisher.o"
 	@echo "... src/position_publisher.i"
 	@echo "... src/position_publisher.s"

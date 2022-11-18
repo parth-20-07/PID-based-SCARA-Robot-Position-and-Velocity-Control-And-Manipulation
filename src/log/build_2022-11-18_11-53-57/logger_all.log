@@ -1,0 +1,253 @@
+[0.283s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.283s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7fc09dbb2ec0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fc09e5195a0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fc09e5195a0>>)
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.300s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/parth/Desktop/ros2_ws/src'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.302s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.302s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.302s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.302s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extension 'ignore'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extension 'ignore_ament_install'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extensions ['colcon_pkg']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extension 'colcon_pkg'
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extensions ['colcon_meta']
+[0.333s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extension 'colcon_meta'
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extensions ['ros']
+[0.334s] Level 1:colcon.colcon_core.package_identification:_identify(custom_interfaces) by extension 'ros'
+[0.336s] DEBUG:colcon.colcon_core.package_identification:Package 'custom_interfaces' with type 'ros.ament_cmake' and name 'custom_interfaces'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extensions ['ignore', 'ignore_ament_install']
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'ignore'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'ignore_ament_install'
+[0.336s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extensions ['colcon_pkg']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'colcon_pkg'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extensions ['colcon_meta']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'colcon_meta'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extensions ['ros']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'ros'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extensions ['cmake', 'python']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'cmake'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'python'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extensions ['python_setup_py']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files) by extension 'python_setup_py'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extensions ['ignore', 'ignore_ament_install']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extension 'ignore'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extension 'ignore_ament_install'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extensions ['colcon_pkg']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extension 'colcon_pkg'
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extensions ['colcon_meta']
+[0.337s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extension 'colcon_meta'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extensions ['ros']
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_description) by extension 'ros'
+[0.338s] DEBUG:colcon.colcon_core.package_identification:Package 'rrbot_simulation_files/rrbot_description' with type 'ros.ament_cmake' and name 'rrbot_description'
+[0.338s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'ignore'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'ignore_ament_install'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extensions ['colcon_pkg']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'colcon_pkg'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extensions ['colcon_meta']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'colcon_meta'
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extensions ['ros']
+[0.339s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'ros'
+[0.340s] DEBUG:colcon.colcon_core.package_identification:Found ROS schema reference in package manifest in 'rrbot_simulation_files/rrbot_gazebo'
+[0.340s] WARNING:colcon.colcon_core.package_identification:Failed to parse ROS package manifest in 'rrbot_simulation_files/rrbot_gazebo': Error(s) in package 'rrbot_simulation_files/rrbot_gazebo/package.xml':
+Error(s):
+- The generic dependency on 'custom_interfaces' is redundant with: exec_depend
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extensions ['cmake', 'python']
+[0.341s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'cmake'
+[0.343s] Level 1:colcon.colcon_core.package_identification:_identify(rrbot_simulation_files/rrbot_gazebo) by extension 'python'
+[0.343s] DEBUG:colcon.colcon_core.package_identification:Package 'rrbot_simulation_files/rrbot_gazebo' with type 'cmake' and name 'rrbot_gazebo'
+[0.343s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.343s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.343s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.343s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.343s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.369s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.370s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.371s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/parth/Desktop/ros2_ws/install/rrbot_gazebo' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.372s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/parth/Desktop/ros2_ws/install/example_interfaces' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.372s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/parth/Desktop/ros2_ws/install/custom_interfaces' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.372s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/parth/Desktop/ros2_ws/install/rrbot_gazebo' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.372s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/parth/Desktop/ros2_ws/install/example_interfaces' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.372s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/parth/Desktop/ros2_ws/install/custom_interfaces' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.374s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/parth/Desktop/ros2_ws/install
+[0.377s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 305 installed packages in /opt/ros/humble
+[0.378s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.439s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.439s] DEBUG:colcon.colcon_core.verb:Building package 'custom_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces', 'merge_install': False, 'path': '/home/parth/Desktop/ros2_ws/src/custom_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'cmake_args' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'cmake_target' from command line to 'None'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.440s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.441s] Level 5:colcon.colcon_core.verb:set package 'rrbot_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.441s] DEBUG:colcon.colcon_core.verb:Building package 'rrbot_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/parth/Desktop/ros2_ws/src/build/rrbot_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/parth/Desktop/ros2_ws/src/install/rrbot_description', 'merge_install': False, 'path': '/home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_description', 'symlink_install': False, 'test_result_base': None}
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'cmake_args' from command line to 'None'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'cmake_target' from command line to 'None'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'cmake_clean_cache' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'cmake_clean_first' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'cmake_force_configure' from command line to 'False'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'ament_cmake_args' from command line to 'None'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'catkin_cmake_args' from command line to 'None'
+[0.442s] Level 5:colcon.colcon_core.verb:set package 'rrbot_gazebo' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.442s] DEBUG:colcon.colcon_core.verb:Building package 'rrbot_gazebo' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/parth/Desktop/ros2_ws/src/build/rrbot_gazebo', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/parth/Desktop/ros2_ws/src/install/rrbot_gazebo', 'merge_install': False, 'path': '/home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_gazebo', 'symlink_install': False, 'test_result_base': None}
+[0.443s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.446s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.447s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/parth/Desktop/ros2_ws/src/custom_interfaces' with build type 'ament_cmake'
+[0.447s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/parth/Desktop/ros2_ws/src/custom_interfaces'
+[0.453s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.453s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.453s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.459s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_description' with build type 'ament_cmake'
+[0.459s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_description'
+[0.461s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.461s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.469s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces
+[0.474s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_description -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/src/install/rrbot_description
+[1.183s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_description -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/src/install/rrbot_description
+[1.183s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/src/build/rrbot_description -- -j16 -l16
+[1.225s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/src/build/rrbot_description -- -j16 -l16
+[1.251s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/src/build/rrbot_description
+[1.269s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(rrbot_description)
+[1.270s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/src/build/rrbot_description
+[1.278s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description' for CMake module files
+[1.278s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description' for CMake config files
+[1.279s] Level 1:colcon.colcon_core.shell:create_environment_hook('rrbot_description', 'cmake_prefix_path')
+[1.281s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/hook/cmake_prefix_path.ps1'
+[1.282s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/hook/cmake_prefix_path.dsv'
+[1.282s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/hook/cmake_prefix_path.sh'
+[1.283s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/bin'
+[1.283s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/lib/pkgconfig/rrbot_description.pc'
+[1.283s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/lib/python3.10/site-packages'
+[1.283s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/bin'
+[1.284s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.ps1'
+[1.285s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.dsv'
+[1.285s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.sh'
+[1.286s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.bash'
+[1.286s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.zsh'
+[1.287s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/colcon-core/packages/rrbot_description)
+[1.313s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(rrbot_description)
+[1.315s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description' for CMake module files
+[1.317s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description' for CMake config files
+[1.317s] Level 1:colcon.colcon_core.shell:create_environment_hook('rrbot_description', 'cmake_prefix_path')
+[1.319s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/hook/cmake_prefix_path.ps1'
+[1.320s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/hook/cmake_prefix_path.dsv'
+[1.321s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/hook/cmake_prefix_path.sh'
+[1.321s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/bin'
+[1.322s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/lib/pkgconfig/rrbot_description.pc'
+[1.322s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/lib/python3.10/site-packages'
+[1.322s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/bin'
+[1.324s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.ps1'
+[1.325s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.dsv'
+[1.326s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.sh'
+[1.327s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.bash'
+[1.328s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/rrbot_description/package.zsh'
+[1.329s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/parth/Desktop/ros2_ws/src/install/rrbot_description/share/colcon-core/packages/rrbot_description)
+[2.181s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/custom_interfaces -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces
+[2.183s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/src/build/custom_interfaces -- -j16 -l16
+[4.484s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/parth/Desktop/ros2_ws/src/build/custom_interfaces -- -j16 -l16
+[4.546s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/src/build/custom_interfaces
+[4.607s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(custom_interfaces)
+[4.609s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces' for CMake module files
+[4.610s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces' for CMake config files
+[4.611s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'cmake_prefix_path')
+[4.613s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.ps1'
+[4.614s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.dsv'
+[4.614s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.sh'
+[4.615s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/parth/Desktop/ros2_ws/src/build/custom_interfaces
+[4.616s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib'
+[4.616s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'ld_library_path_lib')
+[4.618s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.ps1'
+[4.619s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.dsv'
+[4.619s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.sh'
+[4.619s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/bin'
+[4.619s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib/pkgconfig/custom_interfaces.pc'
+[4.620s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib/python3.10/site-packages'
+[4.620s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/bin'
+[4.622s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.ps1'
+[4.623s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.dsv'
+[4.623s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.sh'
+[4.624s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.bash'
+[4.625s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.zsh'
+[4.625s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/colcon-core/packages/custom_interfaces)
+[4.680s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(custom_interfaces)
+[4.683s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces' for CMake module files
+[4.684s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces' for CMake config files
+[4.684s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'cmake_prefix_path')
+[4.686s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.ps1'
+[4.687s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.dsv'
+[4.687s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.sh'
+[4.687s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib'
+[4.688s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'ld_library_path_lib')
+[4.689s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.ps1'
+[4.690s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.dsv'
+[4.690s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.sh'
+[4.690s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/bin'
+[4.690s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib/pkgconfig/custom_interfaces.pc'
+[4.690s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib/python3.10/site-packages'
+[4.691s] Level 1:colcon.colcon_core.environment:checking '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/bin'
+[4.692s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.ps1'
+[4.693s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.dsv'
+[4.693s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.sh'
+[4.694s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.bash'
+[4.694s] INFO:colcon.colcon_core.shell:Creating package script '/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/custom_interfaces/package.zsh'
+[4.694s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/share/colcon-core/packages/custom_interfaces)
+[4.695s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_gazebo'
+[4.697s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.697s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.709s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_gazebo': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib:/home/parth/Desktop/ros2_ws/install/example_interfaces/lib:/home/parth/Desktop/ros2_ws/install/custom_interfaces/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins PYTHONPATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_gazebo -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/src/install/rrbot_gazebo
+[6.362s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/parth/Desktop/ros2_ws/src/build/rrbot_gazebo' returned '1': AMENT_PREFIX_PATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces:${CMAKE_PREFIX_PATH} LD_LIBRARY_PATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/lib:/home/parth/Desktop/ros2_ws/install/example_interfaces/lib:/home/parth/Desktop/ros2_ws/install/custom_interfaces/lib:/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins:/usr/share/gazebo/../../lib/x86_64-linux-gnu/gazebo-11/plugins PYTHONPATH=/home/parth/Desktop/ros2_ws/src/install/custom_interfaces/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/parth/Desktop/ros2_ws/src/rrbot_simulation_files/rrbot_gazebo -DCMAKE_INSTALL_PREFIX=/home/parth/Desktop/ros2_ws/src/install/rrbot_gazebo
+[6.373s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[6.373s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[6.373s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '1'
+[6.373s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[6.380s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[6.380s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[6.380s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[6.396s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[6.398s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/parth/Desktop/ros2_ws/src/install/local_setup.ps1'
+[6.399s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/parth/Desktop/ros2_ws/src/install/_local_setup_util_ps1.py'
+[6.400s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/parth/Desktop/ros2_ws/src/install/setup.ps1'
+[6.403s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/parth/Desktop/ros2_ws/src/install/local_setup.sh'
+[6.403s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/parth/Desktop/ros2_ws/src/install/_local_setup_util_sh.py'
+[6.404s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/parth/Desktop/ros2_ws/src/install/setup.sh'
+[6.406s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/parth/Desktop/ros2_ws/src/install/local_setup.bash'
+[6.406s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/parth/Desktop/ros2_ws/src/install/setup.bash'
+[6.408s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/parth/Desktop/ros2_ws/src/install/local_setup.zsh'
+[6.409s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/parth/Desktop/ros2_ws/src/install/setup.zsh'

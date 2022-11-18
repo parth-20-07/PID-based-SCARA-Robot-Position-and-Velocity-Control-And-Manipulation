@@ -1,4 +1,5 @@
-/home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/publisher
+/home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/fkin_publisher
+/home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/ikin_publisher
 /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/lib/rrbot_gazebo/switch
 /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/launch/rrbot_world.launch.py
 /home/parth/Desktop/ros2_ws/install/rrbot_gazebo/share/rrbot_gazebo/worlds/rrbot.world

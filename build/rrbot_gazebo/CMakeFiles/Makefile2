@@ -63,8 +63,9 @@ CMAKE_BINARY_DIR = /home/parth/Desktop/ros2_ws/build/rrbot_gazebo
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/publisher.dir/all
+all: CMakeFiles/fkin_publisher.dir/all
 all: CMakeFiles/switch.dir/all
+all: CMakeFiles/ikin_publisher.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -74,8 +75,9 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles/uninstall.dir/clean
 clean: CMakeFiles/rrbot_gazebo_uninstall.dir/clean
-clean: CMakeFiles/publisher.dir/clean
+clean: CMakeFiles/fkin_publisher.dir/clean
 clean: CMakeFiles/switch.dir/clean
+clean: CMakeFiles/ikin_publisher.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -131,30 +133,30 @@ CMakeFiles/rrbot_gazebo_uninstall.dir/clean:
 .PHONY : CMakeFiles/rrbot_gazebo_uninstall.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/publisher.dir
+# Target rules for target CMakeFiles/fkin_publisher.dir
 
 # All Build rule for target.
-CMakeFiles/publisher.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles --progress-num=1,2 "Built target publisher"
-.PHONY : CMakeFiles/publisher.dir/all
+CMakeFiles/fkin_publisher.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles --progress-num=1,2 "Built target fkin_publisher"
+.PHONY : CMakeFiles/fkin_publisher.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/publisher.dir/rule: cmake_check_build_system
+CMakeFiles/fkin_publisher.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/publisher.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/fkin_publisher.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles 0
-.PHONY : CMakeFiles/publisher.dir/rule
+.PHONY : CMakeFiles/fkin_publisher.dir/rule
 
 # Convenience name for target.
-publisher: CMakeFiles/publisher.dir/rule
-.PHONY : publisher
+fkin_publisher: CMakeFiles/fkin_publisher.dir/rule
+.PHONY : fkin_publisher
 
 # clean rule for target.
-CMakeFiles/publisher.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/publisher.dir/build.make CMakeFiles/publisher.dir/clean
-.PHONY : CMakeFiles/publisher.dir/clean
+CMakeFiles/fkin_publisher.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fkin_publisher.dir/build.make CMakeFiles/fkin_publisher.dir/clean
+.PHONY : CMakeFiles/fkin_publisher.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/switch.dir
@@ -163,7 +165,7 @@ CMakeFiles/publisher.dir/clean:
 CMakeFiles/switch.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/switch.dir/build.make CMakeFiles/switch.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/switch.dir/build.make CMakeFiles/switch.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles --progress-num=3,4 "Built target switch"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles --progress-num=5,6 "Built target switch"
 .PHONY : CMakeFiles/switch.dir/all
 
 # Build rule for subdir invocation for target.
@@ -181,6 +183,32 @@ switch: CMakeFiles/switch.dir/rule
 CMakeFiles/switch.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/switch.dir/build.make CMakeFiles/switch.dir/clean
 .PHONY : CMakeFiles/switch.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/ikin_publisher.dir
+
+# All Build rule for target.
+CMakeFiles/ikin_publisher.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles --progress-num=3,4 "Built target ikin_publisher"
+.PHONY : CMakeFiles/ikin_publisher.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/ikin_publisher.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ikin_publisher.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/parth/Desktop/ros2_ws/build/rrbot_gazebo/CMakeFiles 0
+.PHONY : CMakeFiles/ikin_publisher.dir/rule
+
+# Convenience name for target.
+ikin_publisher: CMakeFiles/ikin_publisher.dir/rule
+.PHONY : ikin_publisher
+
+# clean rule for target.
+CMakeFiles/ikin_publisher.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ikin_publisher.dir/build.make CMakeFiles/ikin_publisher.dir/clean
+.PHONY : CMakeFiles/ikin_publisher.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

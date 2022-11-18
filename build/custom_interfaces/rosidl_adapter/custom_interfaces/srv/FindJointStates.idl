@@ -1,0 +1,23 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from custom_interfaces/srv/FindJointStates.srv
+// generated code does not contain a copyright notice
+
+
+module custom_interfaces {
+  module srv {
+    struct FindJointStates_Request {
+      double x;
+
+      double y;
+
+      double z;
+    };
+    struct FindJointStates_Response {
+      double q1;
+
+      double q2;
+
+      double q3;
+    };
+  };
+};
