@@ -1,3 +1,5 @@
 **/desktop.ini
 /.vscode
-/log
+log/
+build/
+install/

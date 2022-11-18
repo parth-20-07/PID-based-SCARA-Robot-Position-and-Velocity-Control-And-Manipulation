@@ -1,0 +1,8 @@
+Launch Gazebo: ros2 launch rrbot_gazebo rrbot_world.launch.py 
+
+Launch Ikin Server: ros2 run rrbot_gazebo ikin_publisher
+Test Ikin Service: ros2 service call /inverse_kinematics custom_interfaces/srv/FindJointStates "{x: 1, y: 0, z: 2}"
+
+Launch Fkin Publisher: ros2 run rrbot_gazebo fkin_publisher
+Launch RVIZ: ros2 launch rrbot_description view_robot.launch.py
+Read Fkin Topic Echo: ros2 topic echo /forward_position_controller/commands
