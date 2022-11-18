@@ -8,13 +8,13 @@
     <!-- arbitrary value for mass -->
     <xacro:property name="width" value="0.1" />
     <!-- Square dimensions (widthxwidth) of beams -->
-    <xacro:property name="height1" value="2" />
+    <xacro:property name="base_link_length" value="2" />
     <!-- Link 1 -->
-    <xacro:property name="height2" value="1" />
+    <xacro:property name="link1_length" value="1" />
     <!-- Link 2 -->
-    <xacro:property name="height3" value="1" />
+    <xacro:property name="link2_length" value="1" />
     <!-- Link 3 -->
-    <xacro:property name="height4" value="2" />
+    <xacro:property name="link3_length" value="2.2" />
     <!-- Link 4 -->
     <xacro:property name="camera_link" value="0.05" />
     <!-- Size of square 'camera' box -->
@@ -30,125 +30,126 @@
     <!-- Base Link -->
     <link name="${prefix}base_link">
       <collision>
-        <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${base_link_length/2}" rpy="0 0 0"/>
         <geometry>
-          <box size="${width} ${width} ${height1}"/>
+          <box size="${width} ${width} ${base_link_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${base_link_length/2}" rpy="0 0 0"/>
         <geometry>
-          <box size="${width} ${width} ${height1}"/>
+          <box size="${width} ${width} ${base_link_length}"/>
         </geometry>
         <material name="orange"/>
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${base_link_length/2}" rpy="0 0 0"/>
         <mass value="${mass}"/>
-        <inertia ixx="${mass / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (height1*height1 + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
+        <inertia ixx="${mass / 12.0 * (width*width + base_link_length*base_link_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (base_link_length*base_link_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
     </link>
 
     <joint name="${prefix}joint1" type="continuous">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}link1"/>
-      <origin xyz="0 ${width} ${height1 - axel_offset}" rpy="0 1.5708 0"/>
-      <axis xyz="1 0 0"/>
+      <origin xyz="0 0 ${base_link_length}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
       <dynamics damping="0.7"/>
     </joint>
 
-    <!-- Middle Link -->
+    <!-- Link 1 -->
     <link name="${prefix}link1">
       <collision>
-        <origin xyz="0 0 ${height2/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link1_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 -1.5708 0"/>
         <geometry>
-          <box size="${width} ${width} ${height2}"/>
+          <box size="${width} ${width} ${link1_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${height2/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link1_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 -1.5708 0"/>
         <geometry>
-          <box size="${width} ${width} ${height2}"/>
+          <box size="${width} ${width} ${link1_length}"/>
         </geometry>
         <material name="yellow"/>
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${height2/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link1_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 -1.5708 0"/>
         <mass value="${mass}"/>
-        <inertia ixx="${mass / 12.0 * (width*width + height2*height2)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (height2*height2 + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
+        <inertia ixx="${mass / 12.0 * (width*width + link1_length*link1_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link1_length*link1_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
     </link>
+
     <joint name="${prefix}joint2" type="continuous">
       <parent link="${prefix}link1"/>
       <child link="${prefix}link2"/>
-      <origin xyz="0 ${width} ${height2 - axel_offset*2}" rpy="0 0 0"/>
-      <axis xyz="1 0 0"/>
+      <origin xyz="${link1_length - 2*axel_offset} 0 ${2*axel_offset}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
       <dynamics damping="0.7"/>
     </joint>
 
-    <!-- Top Link -->
+    <!-- Link 2 -->
     <link name="${prefix}link2">
       <collision>
-        <origin xyz="0 0 ${height3/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link2_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 -1.5708 0"/>
         <geometry>
-          <box size="${width} ${width} ${height3}"/>
+          <box size="${width} ${width} ${link2_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${height3/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link2_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 -1.5708 0"/>
         <geometry>
-          <box size="${width} ${width} ${height3}"/>
+          <box size="${width} ${width} ${link2_length}"/>
         </geometry>
         <material name="orange"/>
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${height3/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${link2_length/2 - axel_offset} 0 ${axel_offset}" rpy="0 -1.5708 0"/>
         <mass value="${mass}"/>
-        <inertia ixx="${mass / 12.0 * (width*width + height3*height3)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (height3*height3 + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
+        <inertia ixx="${mass / 12.0 * (width*width + link2_length*link2_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link2_length*link2_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
     </link>
 
     <joint name="${prefix}joint3" type="prismatic">
-      <limit lower="0" upper="${height4}" effort="50" velocity="10.0"/>
+      <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/>
       <parent link="${prefix}link2"/>
       <child link="${prefix}link3"/>
-      <origin xyz="0 ${width} ${height3 - axel_offset*2}" rpy="0 1.5708 0"/>
-      <axis xyz="0 0 -1"/>
+      <origin xyz="${link2_length - axel_offset} 0 ${-link2_length + axel_offset}" rpy="3.1416 0 0"/>
+      <axis xyz="0 0 1"/>
       <dynamics damping="0.7"/>
     </joint>
 
-    <!-- Top Link -->
+    <!-- Link 3 -->
     <link name="${prefix}link3">
       <collision>
-        <origin xyz="0 0 ${height4/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
         <geometry>
-          <box size="${width} ${width} ${height4}"/>
+          <box size="${width} ${width} ${link3_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="0 0 ${height4/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${-link3_length + 3*axel_offset}" rpy="0 0 0"/>
         <geometry>
-          <box size="${width} ${width} ${height4}"/>
+          <box size="${width} ${width} ${link3_length}"/>
         </geometry>
-        <material name="orange"/>
+        <material name="yellow"/>
       </visual>
 
       <inertial>
-        <origin xyz="0 0 ${height4/2 - axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
         <mass value="${mass}"/>
-        <inertia ixx="${mass / 12.0 * (width*width + height3*height3)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (height3*height3 + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
+        <inertia ixx="${mass / 12.0 * (width*width + link2_length*link2_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link2_length*link2_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
     </link>
 
     <joint name="${prefix}tool_joint" type="fixed">
-      <origin xyz="0 0 1" rpy="0 0 0" />
+      <origin xyz="${axel_offset} 0 ${-link3_length + axel_offset}" rpy="0 0 0"/>
       <parent link="${prefix}link3"/>
       <child link="${prefix}tool_link" />
     </joint>
