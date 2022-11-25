@@ -18,26 +18,150 @@ Having a desktop friendly version helps to determine the quality of air which ca
 
 <br>
 
-## How to assemble the project
-1. Download the latest version of firmware from the /Firmware folder
-2. Edit the Firmware as per the requirement with the help of guide provided in /Firmware/README.md
-3. Order the components from the Bill of Materials as per the requirement.
-4. Make the Hardware circuit
-   1.  Solder them on General Purpose PCB Board using the design below (or)
-   2.  Order the PCB by providing the PCB Developer with the gerber file available in /Hardware/PCB_Gerber.zip and solder all the component on it
-5.  Upload the firmware on the the hardware
+# How to setup the project
+## Gazebo Installation Tutorials
+
+#**RBE 500 Fall** #_Made by Prof. Berk Calli and Yash Patil_
+
+In this tutorial we will install Gazebo 11 and all its supporting files that will aid us in robot simulation.
+
+### Gazebo
+
+Use the following commands to install Gazebo and its supplementry files
+
+```
+sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+
+wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+```
+
+Once this is done, update using and make sure it runs without any errors
+
+```
+sudo apt-get update
+```
+
+now install Gazebo using
+
+```
+sudo apt-get install gazebo libgazebo-dev
+```
+
+You can check your installation by running this in a new terminal
+
+```
+gazebo
+```
+
+### Gazebo ROS 2 packages
+
+To use Gazebo with ros2, there are certain packages that need to be installed
+
+```
+sudo apt install ros-humble-gazebo-ros-pkgs
+```
+
+Now we will install simulated robot controllers
+
+```
+sudo apt-get install ros-humble-ros2-control ros-humble-ros2-controllers
+sudo apt-get install ros-humble-gazebo-ros2-control ros-humble-xacro
+sudo apt-get install ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui
+```
+
+Now your system is ready to simulate any robot.
+
+### Spawn rrbot in Gazebo
+
+These are optional steps just to make sure everything is alright.
+
+Please find the zipped package that has one of many ways to spawn an URDF in Gazebo using ROS2.
+
+Extract the package to your workspace/src.
+
+Before doing `colcon build` we have to install some dependencies for the package to function correctly.
+Run the following commands in terminal
+
+```
+sudo apt install python3-pip
+sudo pip3 install transforms3d
+```
+
+Once you have successfully installed all the required packages, find the supporting zip file that contains rrbot simulation files.
+
+## RRBOT
+
+That zip file contains 2 packages:
+
+
+### **rrbot_description**
+
+This package contains the description files for the rrbot such as its urdf, gazebo plugins, ros2 control definitions etc.
+Xacro has been used instead of URDF to keep the description more modular, you will find that the main file *rrbot.urdf.xacro* includes a bunch of different files, so you don't have to deal with a very large file.
+The important files for us are *rrbot.gazebo.xacro* and *rrbot.ros2_control.xacro*, these contains the configuration for ROS2 Control.
+Visit this link for understanding how to configure ros2 control for your robot: https://github.com/ros-controls/gazebo_ros2_control
+
+### **rrbot_gazebo**
+
+This package launches the actual simulation environment.
+The *gazebo_controllers.yaml* file in *config* helps us define what kind of controller we want to use, here we are using a **forward_command_controller** that just takes the command and applies it as it is, we have selected position as the command interface, i.e. we will control the position of the joints, reset all will be calculated by the controller. We can also use velocity or effort (torque) as the command interface.
+The state interfaces is what kind of feedback we will receive from **JointStateBroadcastser**, here we are taking position, velocity and effort feedbacks from the robot.
+**JointStateBroadcaster** is a different type of controller, it basically reads the current joint states from simulation environment and publishes it on the topic */joint_states*.
+
+The launch folder contains a launch file **rrbot_world.launch.py** which will be used to launch every thing, gazebo simulation environment, controller manager for ros2 control, robot state publisher.
+
+## For Simulation
+
+Extract the zip file to your ros2 workspace and cd in your workspace
+
+```
+colcon build --symlink-install
+. install/setup.bash
+```
+
+As we are using some gazebo plugins for camera, we need to source the gazebo setup bash file too
+
+```
+. /usr/share/gazebo/setup.bash
+```
+
+you can also put this in your .bashrc by doing
+
+```
+echo ". /usr/share/gazebo/setup.bash" >> ~/.bashrc
+```
+
+Now open a new terminal and run
+
+```
+ros2 launch rrbot_gazebo rrbot_world.launch.py
+```
+
+This should result in a new Gazebo window popping up with rrbot spawned,
+Now if you do ros2 topic list, you will be able to see a bunch of different topics
+*/joint_states* : This topic will have the robot's current state, i.e. position, velocity and efforts of each joint
+*/forward_position_controller/commands* : This is the control topic, this will be used to control the robot joints
+*/camera1/image_raw* : On this topic the robot will publish the camera feed, to visualize what the camera is seeing we can use rviz2.
+
+open a new terminal and run
+
+```
+ros2 run rviz2 rviz2
+```
+
+A new window with Rviz should open up, first set the 'Fixes Frame' to *world*, and then click on 'Add', Select 'By Topic', and then select 'image'. You will be able to see a small dialog box on left hand side with the current feed of camera.
+
+Now open up a new terminal and run
+
+```
+ros2 run rrbot_gazebo publisher
+```
+
+*Note: This can also result in your system getting hanged for a few minutes, this is just a first time thing and please don't kill the node if this happens, average hang-time is around 2-3 mins, if it goes above 10 mins kill the launch file.*
 
 <br>
 
-## Schematic Design
-<img width="500px" align="center" alt="Circuit Schematic" src="Hardware/Schematic.png" />
-<br><br>
-
-<!-- ## PCB Design
-<img width="500px" align="left" alt="PCB Design" src="Hardware/PCB Design.png">
-<br><br><br><br> -->
-
-## How to use the device
+# How to use the project
 1. Press the push button to turn on the device.
 2. The device will start with a bootup screen with the company logo.
 3. The landing page will show the value of PM 2.5 of screen.
@@ -46,25 +170,6 @@ Having a desktop friendly version helps to determine the quality of air which ca
    2. Live PM 1.0, PM 2.5, PM 10 data screen.
    3. PM 2.5 graph screen which plots the value of PM 2.5 in bar graph at an interval of 5 mins.
 
-<br>
-
-## Bill of Materials
-| Component | Buy Link | Quantity |
-|-----------|----------|----------|
-|Arduino Nano|https://www.electronicscomp.com/arduino-nano-3.0-development-board?search=arduino%20nano|1|
-|PMS Air Particle Dust Sensor|https://www.electronicscomp.com/pms7003-sensor-module-pm2.5-air-particle-dust-sensor?search=pms%20sensor|1|
-|TM1637 4 x 7 Segment Display|https://www.electronicscomp.com/tm1637-4-digits-7-segment-led-display-module-with-clock-for-arduino?search=tm1637|1|
-|1.8" TFT LCD (128 x 160 pixels)|https://www.electronicscomp.com/1.8-inch-tft-lcd-module-128x160-with-4-io?search=1.8%20tft|1|
-|1k Ohm 1/4 Watt THT Resistor|https://www.electronicscomp.com/1k-ohm-resistance?search=1k%20resistor|4|
-|XL6009 Boost Converter|https://www.electronicscomp.com/xl6009-dc-dc-adjustable-step-up-boost-power-converter-module-india?search=xl6009|1|
-|1N4007 1A Diode|https://www.electronicscomp.com/1n4007-diode?search=1n4007|2|
-|TP4056 Module (Type C)|https://www.electronicscomp.com/tp4056-1a-li-ion-lithium-battery-charging-module-with-current-protection-type-c?search=tp4056|1|
-|7 x 7 mm Push Switch|https://www.electronicscomp.com/push-switch-non-locking-6pin?gclid=Cj0KCQiAq7COBhC2ARIsANsPATHrl1eFRUm9aj9fV5nQhOWSY-DTgY14UJ8K7TpmNlkErdsdw3PRDSMaAhYHEALw_wcB|1|
-|5 x 5 mm Push Button Switch|https://www.electronicscomp.com/push-button-switch-2-pin-5mm?search=push%20button|1|
-|3500 mAH Li-Po Battery|https://www.electronicscomp.com/3.7v-3500mah-lipo-battery-model-kp-406090-india?search=500%20mAh|1|
-|2mm Blue LED|https://www.roboelements.com/product/5pcs-3mm-blue-led/?gclid=Cj0KCQiAq7COBhC2ARIsANsPATGL7wa7CufQcjKscsp10lo9DEvm4cgmpSG2u2ZRz8-nCg5U4CRUbyAaAhBfEALw_wcB|1|
-
-<br>
 
 <!-- ## Photographs
 <img width="500px" align="left" alt="Device Photograph 1" src="/Resources/Device Images/image1.png">
@@ -79,6 +184,10 @@ Having a desktop friendly version helps to determine the quality of air which ca
 
 <br><br>
 
-## Design Details
-- Designed for: Ecologic Pvt. Ltd.
-- Designed by: [Parth Patel](mailto:parth.pmech@gmail.com)
+## Designer Details
+- Designed for: 
+  - Worcester Polytechnic Institute
+  - RBE 500: Foundation of Robotics - Final Project
+- Designed by:
+  - [Parth Patel](mailto:parth.pmech@gmail.com)
+  - [Kamron Schloer](mailto:)
