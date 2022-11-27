@@ -18,8 +18,7 @@ std::double_t l1 = 1, l2 = 1, ao = 0.05, lb = 1;
 class FKin_Publisher : public rclcpp::Node
 {
 public:
-  FKin_Publisher()
-      : Node("minimal_publisher"), count_(0)
+  FKin_Publisher() : Node("minimal_publisher"), count_(0)
   {
     fkin_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/forward_position_controller/commands", 10);
     joint_state_subscriber_ = this->create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&FKin_Publisher::topic_callback, this, _1));

@@ -19,6 +19,7 @@ forward_position_controller:
     joints:
        - joint1
        - joint2
+       - joint3
     interface_name: position
     command_interfaces:
         - position
@@ -32,6 +33,7 @@ forward_velocity_controller:
     joints:
        - joint1
        - joint2
+       - joint3
     interface_name: velocity
     command_interfaces:
         - velocity
@@ -45,6 +47,7 @@ forward_effort_controller:
     joints:
        - joint1
        - joint2
+       - joint3
     interface_name: effort
     command_interfaces:
         - effort

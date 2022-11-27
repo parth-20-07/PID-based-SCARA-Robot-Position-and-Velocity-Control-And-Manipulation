@@ -6,3 +6,5 @@ Test Ikin Service: ros2 service call /inverse_kinematics custom_interfaces/srv/F
 Launch Fkin Publisher: ros2 run rrbot_gazebo fkin_publisher
 Launch RVIZ: ros2 launch rrbot_description view_robot.launch.py
 Read Fkin Topic Echo: ros2 topic echo /forward_position_controller/commands
+
+Joint Control Service Call: ros2 service call /joint_state_controller custom_interfaces/srv/SetJointStates "{rq1: 1, rq2: 1, rq3: 1}"
