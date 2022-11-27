@@ -119,22 +119,22 @@
       <limit upper="${link3_length - 2*axel_offset}" lower="0" effort="50" velocity="10.0"/>
       <parent link="${prefix}link2"/>
       <child link="${prefix}link3"/>
-      <origin xyz="${link2_length - axel_offset} 0 ${-link2_length + axel_offset}" rpy="3.1416 0 0"/>
-      <axis xyz="0 0 1"/>
+      <origin xyz="${link2_length - axel_offset} 0 ${axel_offset}" rpy="3.1416 0 0"/>
+      <axis xyz="0 0 -1"/>
       <dynamics damping="0.7"/>
     </joint>
 
     <!-- Link 3 -->
     <link name="${prefix}link3">
       <collision>
-        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${link3_length/2 - axel_offset}" rpy="0 0 0"/>
         <geometry>
           <box size="${width} ${width} ${link3_length}"/>
         </geometry>
       </collision>
 
       <visual>
-        <origin xyz="${axel_offset} 0 ${-link3_length + 3*axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${link3_length/2 - axel_offset}" rpy="0 0 0"/>
         <geometry>
           <box size="${width} ${width} ${link3_length}"/>
         </geometry>
@@ -142,7 +142,7 @@
       </visual>
 
       <inertial>
-        <origin xyz="${axel_offset} 0 ${-link3_length/2 + axel_offset}" rpy="0 0 0"/>
+        <origin xyz="${axel_offset} 0 ${link3_length/2 - axel_offset}" rpy="0 0 0"/>
         <mass value="${mass}"/>
         <inertia ixx="${mass / 12.0 * (width*width + link2_length*link2_length)}" ixy="0.0" ixz="0.0" iyy="${mass / 12.0 * (link2_length*link2_length + width*width)}" iyz="0.0" izz="${mass / 12.0 * (width*width + width*width)}"/>
       </inertial>
@@ -158,7 +158,6 @@
     <!-- Tool Link -->
     <link name="${prefix}tool_link">
     </link>
-
   </xacro:macro>
 
 </robot>
