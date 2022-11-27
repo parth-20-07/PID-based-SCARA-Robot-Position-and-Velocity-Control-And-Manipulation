@@ -12,5 +12,3 @@ Joint State Control Method:
 2. Switch to Effort Controller: ros2 run rrbot_gazebo switch
 3. Launch the Effort Service: ros2 run rrbot_gazebo joint_control
 4. Joint Control Service Call: ros2 service call /joint_state_controller custom_interfaces/srv/SetJointStates "{rq1: 1, rq2: 1, rq3: 1}"
-
-'data: [1.0, 1.2, 1.5]'

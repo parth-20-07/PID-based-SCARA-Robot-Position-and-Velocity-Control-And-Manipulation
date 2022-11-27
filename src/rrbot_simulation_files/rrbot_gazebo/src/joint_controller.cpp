@@ -39,7 +39,7 @@ private:
     efforts_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_effort_controller/commands", 10);
   }
 
-  void calculate_joint_efforts(const sensor_msgs::msg::JointState::SharedPtr msg) const
+  void calculate_joint_efforts(const sensor_msgs::msg::JointState::SharedPtr msg)
   {
     std::vector<std::double_t> joint_position = {
         msg->position[0],
@@ -50,32 +50,28 @@ private:
         msg->velocity[1],
         msg->velocity[2]};
     std::vector<std::double_t> error = {
-        reference_position[0] - joint_position[0],
-        reference_position[1] - joint_position[1],
-        reference_position[2] - joint_position[2]};
-    std::vector<std::double_t> joint_efforts = {0, 0, 0};
+        joint_position[0] - reference_position[0],
+        joint_position[1] - reference_position[1],
+        joint_position[2] - reference_position[2]};
+    apply_joint_efforts[0] = 0;
+    apply_joint_efforts[1] = 0;
+    apply_joint_efforts[2] = 9.8;
 
-    // if (error[0] > acceptable_error) // Joint 1
-    //   joint_efforts[0] = -(proportional_gain[0] * error[0]) - (derivative_gain[0] * joint_velocity[0]);
+    if (abs(error[0]) > acceptable_error) // Joint 1
+      apply_joint_efforts[0] = -(proportional_gain[0] * error[0]) - (derivative_gain[0] * joint_velocity[0]);
 
-    // if (error[1] > acceptable_error) // Joint 2
-    //   joint_efforts[1] = -(proportional_gain[1] * error[1]) - (derivative_gain[1] * joint_velocity[1]);
+    if (abs(error[1]) > acceptable_error) // Joint 2
+      apply_joint_efforts[1] = -(proportional_gain[1] * error[1]) - (derivative_gain[1] * joint_velocity[1]);
 
-    if (error[2] > acceptable_error) // Joint 3
-      joint_efforts[2] = -(proportional_gain[2] * error[2]) - (derivative_gain[2] * joint_velocity[2]);
+    if (abs(error[2]) > acceptable_error) // Joint 3
+      apply_joint_efforts[2] = -(proportional_gain[2] * error[2]) - (derivative_gain[2] * joint_velocity[2]);
+
     std_msgs::msg::Float64MultiArray message;
-    // message.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
-    // message.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
-    // message.layout.dim[0].label = "width";
-    // message.layout.dim[0].size = 4;
-    // message.layout.dim[0].stride = 4 * 4;
-    // message.layout.dim[1].label = "height";
-    // message.layout.dim[1].size = 4;
-    // message.layout.dim[0].stride = 4;
-    // message.layout.data_offset = 0;
     message.data.clear();
-    message.data = joint_efforts;
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing Joint Efforts (u1,u2,u3): ('%f','%f','%f')", joint_efforts[0], joint_efforts[2], joint_efforts[2]);
+    message.data = apply_joint_efforts;
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n\n\nErrors (q1,q2,q3): ('%f','%f','%f')", error[0], error[1], error[2]);
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing Joint Efforts (u1,u2,u3): ('%f','%f','%f')", apply_joint_efforts[0], apply_joint_efforts[1], apply_joint_efforts[2]);
     efforts_publisher_->publish(message);
   }
   // Variable Definition for class
@@ -85,23 +81,21 @@ private:
 
   size_t count_;
   std::vector<std::double_t> reference_position;
-  bool reference_position_reached = false;
+  std::vector<std::double_t> apply_joint_efforts = {0, 0, 0};
 
-  std::double_t acceptable_error = 0.01f;
-  std::vector<std::double_t> proportional_gain = {0.2, 0.3, 2};
-  std::vector<std::double_t> derivative_gain = {0.2, 0.3, 0.4};
+  std::double_t acceptable_error = 0.02f;
+  std::vector<std::double_t> proportional_gain = {15, 40, 70};
+  std::vector<std::double_t> derivative_gain = {12, 7, 15};
 };
 
 int main(int argc, char *argv[])
 {
-  system("ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
-  system("ros2 run rrbot_gazebo switch");
-  system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
   rclcpp::init(argc, argv);
   auto node = std::make_shared<joint_state_controller>();
   RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting Position Control.");
+  system("ros2 run rrbot_gazebo switch");
+  system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
   rclcpp::spin(node);
   rclcpp::shutdown();
-  system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
   return 0;
 }
