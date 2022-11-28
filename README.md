@@ -298,7 +298,9 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    ```
    Change the Joint States by trying different values for (rq1,rq2,rq3)
 
-   ![Example Video](https://github.com/parth-20-07/RBE-500-Final-Project/blob/41c92a89b4cd3c61b09122e709d2747ececefb5c/Submissions/Group%20Project%202/Robot%20Joint%20Control.mp4)
+   [Reference Video](https://youtu.be/P_8ERXKMxVg)
+   
+   *Yes I am this dumb that I need YouTube to show my video as I could not find a working example of how to embed video in Markdown. Don't act Sassy About it now !!*
 
 ## Assignment 3
 
