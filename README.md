@@ -244,15 +244,45 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    ```
    ros2 service call /inverse_kinematics custom_interfaces/srv/FindJointStates "{x: 1, y: 0, z: 2}"
    ```
-   The service Call will return the output in following format:
+   Change the end effector position by changing the values for (x,y,z).
 
-    ![IKIN Service Call](/Submissions/Group%20Project%201/Ikin%20Service%20Call.png)
+   The service Call will return the output in following format:
+   
+   ![IKIN Service Call](/Submissions/Group%20Project%201/Ikin%20Service%20Call.png)
     
     The service results two sets of possible response:
     - (q11, q21, q31)
     - (q12, q22, q32)
 
 ## Assignment 2:
+1. Compile the project by using the command:
+   ```
+   colcon build
+   ```
+2. Launch RRBOT in Gazebo using:
+   ```
+   ros2 launch rrbot_gazebo rrbot_world.launch.py 
+   ```
+   This will launch the Gazebo Window with the RRBOT spawned.
+   
+   ![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
+3. Launch the Joint Control Node using:
+   ```
+   ros2 run rrbot_gazebo joint_control
+   ```
+   The control strategy used for the Joint Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
+   $$u = -K_{p}*e_{x} - K_{d}*e_{v}$$
+   where:
+   - $e_{x}$ is position error: $e_{x} = x_{reference} - x_{current}$
+   - $e_{v}$ is velocity error: $e_{v} = v_{reference} - v_{current}$
+4. Call the Joint Control service using:
+   ```
+   ros2 service call /joint_state_controller custom_interfaces/srv/SetJointStates '{rq1: 1, rq2: 2, rq3: 2}'
+   ```
+   Change the Joint States by trying different values for (rq1,rq2,rq3)
+
+   <a href="{Submissions/Group%20Project%202/Robot%20Joint%20Control.mp4}" title="Joint Control"><img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" alt="Alternate Text" /></a>
+
 ## Assignment 3:
 
 ## Tools Used
