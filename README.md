@@ -1,6 +1,22 @@
-# RBE 500: Foundation of Robotics - Final Project
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [How to setup the project](#how-to-setup-the-project)
+  - [Install ROS2 Humble Hawksbill](#install-ros2-humble-hawksbill)
+  - [Environment Setup](#environment-setup)
+  - [Gazebo Installation Tutorials](#gazebo-installation-tutorials)
+  - [Simulation](#simulation)
+- [How to use the project](#how-to-use-the-project)
+  - [Assignment 1](#assignment-1)
+    - [**Forward Kinematics Node**](#forward-kinematics-node)
+    - [**Inverse Kinematics Node**](#inverse-kinematics-node)
+  - [Assignment 2](#assignment-2)
+    - [**Joint Efforts Control Node**](#joint-efforts-control-node)
+  - [Assignment 3](#assignment-3)
+- [Tools Used](#tools-used)
+- [Designer Details](#designer-details)
 
-## Basic Information about the project
+# Introduction
 The aim of the assignment is meant to get a better understanding of basic concepts of Robotics using tools like [ROS2 Humble Hawksbill](https://docs.ros.org/en/humble/index.html), [Gazebo Sim](https://gazebosim.org/home), [RVIZ](https://github.com/ros2/rviz) and [MathWorks&#174; MATLAB](https://www.mathworks.com/products/matlab.html)
 
 The final project is divided into three seperate assignments:
@@ -165,7 +181,7 @@ The state interfaces is what kind of feedback we will receive from **JointStateB
 
 The launch folder contains a launch file **rrbot_world.launch.py** which will be used to launch every thing, gazebo simulation environment, controller manager for ros2 control, robot state publisher.
 
-## For Simulation
+## Simulation
 
 In the main folder run the following commands:
 ```
@@ -191,13 +207,13 @@ Now if you do ros2 topic list, you will be able to see a bunch of different topi
 
 <br>
 
-# How to use the project:
-## Assignment 1:
+# How to use the project
+## Assignment 1
 1. Compile the project by using the command:
    ```
    colcon build
    ```
-**Forward Kinematics Node:**
+### **Forward Kinematics Node**
 
 2. Launch the RVIZ model in a new terminal using:
    ```
@@ -232,7 +248,7 @@ Now if you do ros2 topic list, you will be able to see a bunch of different topi
     The z coordinates is displayed at line 12.
 5. Move around the sliders in the *Joint State Publisher* Window to see the End Effector Position change.
 
-**Inverse Kinematics Node:**
+### **Inverse Kinematics Node**
 
 The Inverse Kinematics Node works on a server service node setup. The user can type the end-effector pose after launching the server node and request node to calculate the Joint States using a Service Call.
 
@@ -254,7 +270,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
     - (q11, q21, q31)
     - (q12, q22, q32)
 
-## Assignment 2:
+## Assignment 2
 1. Compile the project by using the command:
    ```
    colcon build
@@ -266,6 +282,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    This will launch the Gazebo Window with the RRBOT spawned.
    
    ![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
+### **Joint Efforts Control Node**
 3. Launch the Joint Control Node using:
    ```
    ros2 run rrbot_gazebo joint_control
@@ -283,9 +300,10 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    ![Example Video](https://github.com/parth-20-07/RBE-500-Final-Project/blob/41c92a89b4cd3c61b09122e709d2747ececefb5c/Submissions/Group%20Project%202/Robot%20Joint%20Control.mp4)
 
-## Assignment 3:
+## Assignment 3
 
-## Tools Used
+
+# Tools Used
 <img width="30px" align="left" alt="C" src="Resources/Logos/C Logo.jpeg">
 <img width="25px" align="left" alt="CPP" src="Resources/Logos/CPP Logo.jpeg">
 <img width="80px" align="left" alt="Git" src="Resources/Logos/Git Logo.jpeg">
@@ -294,7 +312,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
 <br><br>
 
-## Designer Details
+# Designer Details
 - Designed for: 
   - Worcester Polytechnic Institute
   - RBE 500: Foundation of Robotics - Final Project
