@@ -37,6 +37,7 @@ private:
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Request (q1,q2,q3): ('%f','%f','%f')", reference_position[0], reference_position[1], reference_position[2]);
     joint_state_subscriber_ = create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&joint_state_controller::calculate_joint_efforts, this, _1));
     efforts_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_effort_controller/commands", 10);
+    reference_value_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/reference_joint_states/commands", 10);
   }
 
   void calculate_joint_efforts(const sensor_msgs::msg::JointState::SharedPtr msg)
@@ -70,14 +71,20 @@ private:
     message.data.clear();
     message.data = apply_joint_efforts;
 
+    std_msgs::msg::Float64MultiArray reference_joint_states;
+    reference_joint_states.clear();
+    reference_joint_states.data = reference_position;
+
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n\n\nErrors (q1,q2,q3): ('%f','%f','%f')", error[0], error[1], error[2]);
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing Joint Efforts (u1,u2,u3): ('%f','%f','%f')", apply_joint_efforts[0], apply_joint_efforts[1], apply_joint_efforts[2]);
     efforts_publisher_->publish(message);
+    reference_value_publisher_->publish(reference_joint_states);
   }
   // Variable Definition for class
   rclcpp::Service<custom_interfaces::srv::SetJointStates>::SharedPtr service_;
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscriber_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr efforts_publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr reference_value_publisher_;
 
   size_t count_;
   std::vector<std::double_t> reference_position;
