@@ -6,6 +6,7 @@
   - [Environment Setup](#environment-setup)
   - [Gazebo Installation Tutorials](#gazebo-installation-tutorials)
   - [Simulation](#simulation)
+  - [PlotJuggler](#plotjuggler)
 - [How to use the project](#how-to-use-the-project)
   - [Assignment 1](#assignment-1)
     - [**Forward Kinematics Node**](#forward-kinematics-node)
@@ -205,6 +206,18 @@ Now if you do ros2 topic list, you will be able to see a bunch of different topi
 
 *Note: This can also result in your system getting hanged for a few minutes, this is just a first time thing and please don't kill the node if this happens, average hang-time is around 2-3 mins, if it goes above 10 mins kill the launch file.*
 
+## [PlotJuggler](https://www.plotjuggler.io/)
+
+Plot Juggler is a tool used for visualizing the topics with data for plotting.
+
+Installation of Plot Juggler is pretty simple. Since we are using ROS2 Humble, we will install for the same edition of ROS.
+
+Install the Plot Juggler using the command:
+```
+sudo apt-get install ros-humble-plotjuggler-ros
+```
+And we are all done with Plot Juggler Installation.
+
 <br>
 
 # How to use the project
@@ -299,8 +312,47 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    Change the Joint States by trying different values for (rq1,rq2,rq3)
 
    [Reference Video](https://youtu.be/P_8ERXKMxVg)
-   
+
    *Yes I am this dumb that I need YouTube to show my video as I could not find a working example of how to embed video in Markdown. Don't act Sassy About it now !!*
+5. Echo the topic to see the reference Joint Position:
+   ```
+   ros2 topic echo /reference_joint_states/commands
+   ```
+6. We can visualize the efforts and joint states using PlotJuggler.
+   Launch Plot Juggler using the following:
+   ```
+   ros2 run plotjuggler plotjuggler
+   ```
+   Once the plot Juggler is launched, configure the system to view the joint data as follows:
+   1. Set the Streaming Tab for `ROS2 Topic Subscriber` and Buffer to `60` and press Start Button as shown:
+      ![Plot Juggler Streaming Tab](/Submissions/Group%20Project%202/PlotJuggler_Streaming.png)
+   2. After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
+      ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%202/PlotJuggler_Select_Ros_messages.png)
+   3. Select the Following three topics from list:
+      1. `/forward_effort_controller/commands`
+      2. `/joint_states`
+      3. `/reference_joint_states/commands`
+   4. Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
+      ![Plot Juggler Canvas](/Submissions/Group%20Project%202/PlotJuggler_Canvas.png)
+   5. Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
+      1. Canvas 1: 
+         1. `/forward_effort_controller/commands/data.0`
+         2. `/joint_states/joint1/position`
+         3. `/joint_states/joint1/velocity`
+         4. `/reference_joint_states/commands/data.0`
+      2. Canvas 2: 
+         1. `/forward_effort_controller/commands/data.1`
+         2. `/joint_states/joint2/position`
+         3. `/joint_states/joint2/velocity`
+         4. `/reference_joint_states/commands/data.1`
+      3. Canvas 3: 
+         1. `/forward_effort_controller/commands/data.2`
+         2. `/joint_states/joint3/position`
+         3. `/joint_states/joint3/velocity`
+         4. `/reference_joint_states/commands/data.2`
+      The complete setup for visualization should look as below:
+      ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger_Set_Canvas.png)
+
 
 ## Assignment 3
 
@@ -320,4 +372,4 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
   - RBE 500: Foundation of Robotics - Final Project
 - Designed by:
   - [Parth Patel](mailto:parth.pmech@gmail.com)
-  - [Kamron Schloer](mailto:)
+  - [Cameron Schloer](mailto:)

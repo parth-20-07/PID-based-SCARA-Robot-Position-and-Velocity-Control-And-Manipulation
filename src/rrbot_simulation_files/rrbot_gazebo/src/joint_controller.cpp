@@ -72,7 +72,7 @@ private:
     message.data = apply_joint_efforts;
 
     std_msgs::msg::Float64MultiArray reference_joint_states;
-    reference_joint_states.clear();
+    reference_joint_states.data.clear();
     reference_joint_states.data = reference_position;
 
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n\n\nErrors (q1,q2,q3): ('%f','%f','%f')", error[0], error[1], error[2]);
@@ -90,9 +90,9 @@ private:
   std::vector<std::double_t> reference_position;
   std::vector<std::double_t> apply_joint_efforts = {0, 0, 0};
 
-  std::double_t acceptable_error = 0.02f;
-  std::vector<std::double_t> proportional_gain = {15, 40, 70};
-  std::vector<std::double_t> derivative_gain = {12, 7, 15};
+  std::double_t acceptable_error = 0.0001f;
+  std::vector<std::double_t> proportional_gain = {20, 40, 491};
+  std::vector<std::double_t> derivative_gain = {15, 7, 49};
 };
 
 int main(int argc, char *argv[])
