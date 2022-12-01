@@ -373,10 +373,8 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    ```
 
    Change the Joint States by trying different values for (rq1,rq2,rq3)
-
-   <---[Reference Video](https://youtu.be/P_8ERXKMxVg)--->
-
-   _Yes I am this dumb that I need YouTube to show my video as I could not find a working example of how to embed video in Markdown. Don't act Sassy About it now !!_
+   <!-- [Reference Video](https://youtu.be/P_8ERXKMxVg) -->
+   <!-- _Yes I am this dumb that I need YouTube to show my video as I could not find a working example of how to embed video in Markdown. Don't act Sassy About it now !!_ -->
 
 5. Echo the topic to see the reference Joint Position:
    ```
