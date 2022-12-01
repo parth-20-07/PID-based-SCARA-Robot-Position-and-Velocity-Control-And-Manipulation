@@ -372,4 +372,4 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
   - RBE 500: Foundation of Robotics - Final Project
 - Designed by:
   - [Parth Patel](mailto:parth.pmech@gmail.com)
-  - [Cameron Schloer](mailto:)
+  - [Cameron Schloer](mailto:cameronschloer@gmail.com)
