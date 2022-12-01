@@ -325,15 +325,21 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    ```
    Once the plot Juggler is launched, configure the system to view the joint data as follows:
    1. Set the Streaming Tab for `ROS2 Topic Subscriber` and Buffer to `60` and press Start Button as shown:
+
       ![Plot Juggler Streaming Tab](/Submissions/Group%20Project%202/PlotJuggler_Streaming.png)
+
    2. After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
+
       ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%202/PlotJuggler_Select_Ros_messages.png)
+
    3. Select the Following three topics from list:
       1. `/forward_effort_controller/commands`
       2. `/joint_states`
       3. `/reference_joint_states/commands`
    4. Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
+
       ![Plot Juggler Canvas](/Submissions/Group%20Project%202/PlotJuggler_Canvas.png)
+
    5. Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
       1. Canvas 1: 
          1. `/forward_effort_controller/commands/data.0`
@@ -351,6 +357,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
          3. `/joint_states/joint3/velocity`
          4. `/reference_joint_states/commands/data.2`
       The complete setup for visualization should look as below:
+
       ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger_Set_Canvas.png)
 
 
