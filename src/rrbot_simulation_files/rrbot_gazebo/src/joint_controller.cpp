@@ -20,11 +20,15 @@ public:
   joint_state_controller() : Node("joint_controller_server"), count_(0)
   {
     service_ = this->create_service<custom_interfaces::srv::SetJointStates>("joint_state_controller", std::bind(&joint_state_controller::recieve_reference_joint_position_from_service, this, _1));
+    joint_state_subscriber_ = create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&joint_state_controller::calculate_joint_efforts, this, _1));
+    efforts_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_effort_controller/commands", 10);
+    reference_value_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/reference_joint_states/commands", 10);
   }
 
 private:
   void recieve_reference_joint_position_from_service(const std::shared_ptr<custom_interfaces::srv::SetJointStates::Request> request)
   {
+    command_received_ = true;
     if (request->rq3 > 2.1 || request->rq3 < 0)
     {
       RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Joint State 3 not reachable");
@@ -35,50 +39,48 @@ private:
         request->rq2,
         request->rq3};
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Request (q1,q2,q3): ('%f','%f','%f')", reference_position[0], reference_position[1], reference_position[2]);
-    joint_state_subscriber_ = create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&joint_state_controller::calculate_joint_efforts, this, _1));
-    efforts_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_effort_controller/commands", 10);
-    reference_value_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/reference_joint_states/commands", 10);
   }
 
   void calculate_joint_efforts(const sensor_msgs::msg::JointState::SharedPtr msg)
   {
-    std::vector<std::double_t> joint_position = {
-        msg->position[0],
-        msg->position[1],
-        msg->position[2]};
-    std::vector<std::double_t> joint_velocity = {
-        msg->velocity[0],
-        msg->velocity[1],
-        msg->velocity[2]};
-    std::vector<std::double_t> error = {
-        joint_position[0] - reference_position[0],
-        joint_position[1] - reference_position[1],
-        joint_position[2] - reference_position[2]};
-    apply_joint_efforts[0] = 0;
-    apply_joint_efforts[1] = 0;
-    apply_joint_efforts[2] = 9.8;
+    if (command_received_) {
+      std::vector<std::double_t> joint_position = {
+          msg->position[0],
+          msg->position[1],
+          msg->position[2]};
+      std::vector<std::double_t> joint_velocity = {
+          msg->velocity[0],
+          msg->velocity[1],
+          msg->velocity[2]};
+      std::vector<std::double_t> error = {
+          joint_position[0] - reference_position[0],
+          joint_position[1] - reference_position[1],
+          joint_position[2] - reference_position[2]};
+      apply_joint_efforts[0] = 0;
+      apply_joint_efforts[1] = 0;
+      apply_joint_efforts[2] = 9.8;
 
-    if (abs(error[0]) > acceptable_error) // Joint 1
-      apply_joint_efforts[0] = -(proportional_gain[0] * error[0]) - (derivative_gain[0] * joint_velocity[0]);
+      if (abs(error[0]) > acceptable_error) // Joint 1
+        apply_joint_efforts[0] = -(proportional_gain[0] * error[0]) - (derivative_gain[0] * joint_velocity[0]);
 
-    if (abs(error[1]) > acceptable_error) // Joint 2
-      apply_joint_efforts[1] = -(proportional_gain[1] * error[1]) - (derivative_gain[1] * joint_velocity[1]);
+      if (abs(error[1]) > acceptable_error) // Joint 2
+        apply_joint_efforts[1] = -(proportional_gain[1] * error[1]) - (derivative_gain[1] * joint_velocity[1]);
 
-    if (abs(error[2]) > acceptable_error) // Joint 3
-      apply_joint_efforts[2] = -(proportional_gain[2] * error[2]) - (derivative_gain[2] * joint_velocity[2]);
+      if (abs(error[2]) > acceptable_error) // Joint 3
+        apply_joint_efforts[2] = -(proportional_gain[2] * error[2]) - (derivative_gain[2] * joint_velocity[2]);
 
-    std_msgs::msg::Float64MultiArray message;
-    message.data.clear();
-    message.data = apply_joint_efforts;
+      std_msgs::msg::Float64MultiArray message;
+      message.data.clear();
+      message.data = apply_joint_efforts;
 
-    std_msgs::msg::Float64MultiArray reference_joint_states;
-    reference_joint_states.data.clear();
-    reference_joint_states.data = reference_position;
+      std_msgs::msg::Float64MultiArray reference_joint_states;
+      reference_joint_states.data = reference_position;
+      reference_value_publisher_->publish(reference_joint_states);
 
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n\n\nErrors (q1,q2,q3): ('%f','%f','%f')", error[0], error[1], error[2]);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing Joint Efforts (u1,u2,u3): ('%f','%f','%f')", apply_joint_efforts[0], apply_joint_efforts[1], apply_joint_efforts[2]);
-    efforts_publisher_->publish(message);
-    reference_value_publisher_->publish(reference_joint_states);
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n\n\nErrors (q1,q2,q3): ('%f','%f','%f')", error[0], error[1], error[2]);
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Publishing Joint Efforts (u1,u2,u3): ('%f','%f','%f')", apply_joint_efforts[0], apply_joint_efforts[1], apply_joint_efforts[2]);
+      efforts_publisher_->publish(message);
+    }
   }
   // Variable Definition for class
   rclcpp::Service<custom_interfaces::srv::SetJointStates>::SharedPtr service_;
@@ -86,13 +88,14 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr efforts_publisher_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr reference_value_publisher_;
 
+  bool command_received_ = false;
   size_t count_;
   std::vector<std::double_t> reference_position;
   std::vector<std::double_t> apply_joint_efforts = {0, 0, 0};
 
   std::double_t acceptable_error = 0.0001f;
-  std::vector<std::double_t> proportional_gain = {20, 40, 491};
-  std::vector<std::double_t> derivative_gain = {15, 7, 49};
+  std::vector<std::double_t> proportional_gain = {15, 9.5, 491};
+  std::vector<std::double_t> derivative_gain = {17, 9.5, 60};
 };
 
 int main(int argc, char *argv[])
