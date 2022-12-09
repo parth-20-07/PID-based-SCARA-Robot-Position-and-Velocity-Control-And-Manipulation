@@ -43,7 +43,8 @@ private:
 
   void calculate_joint_efforts(const sensor_msgs::msg::JointState::SharedPtr msg)
   {
-    if (command_received_) {
+    if (command_received_)
+    {
       std::vector<std::double_t> joint_position = {
           msg->position[0],
           msg->position[1],
@@ -102,10 +103,11 @@ int main(int argc, char *argv[])
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<joint_state_controller>();
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting Position Control.");
-  system("ros2 run rrbot_gazebo switch");
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting Joint Effort Control.");
+  system("ros2 run rrbot_gazebo switch_eff");
   system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
   rclcpp::spin(node);
   rclcpp::shutdown();
+  system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
   return 0;
 }

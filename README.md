@@ -359,7 +359,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
 3. Launch the Joint Control Node using:
    ```
-   ros2 run rrbot_gazebo joint_control
+   ros2 run rrbot_gazebo joint_effort_control
    ```
    The control strategy used for the Joint Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
    $$u = -K_{p}*e_{x} - K_{d}*e_{v}$$
@@ -373,6 +373,8 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    ```
 
    Change the Joint States by trying different values for (rq1,rq2,rq3)
+
+   Right Click the Video below and open in new tab to see an example
    <a href="https://youtu.be/P_8ERXKMxVg">
       <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
    </a>
