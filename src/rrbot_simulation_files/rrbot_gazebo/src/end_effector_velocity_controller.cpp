@@ -61,26 +61,32 @@ private:
     end = msg->header.stamp.nanosec;
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "\n\n\n\n");
 
-    if (service_call_for_joint_velocity_control)
-    {
-      std::vector<std::double_t> end_effector_velocity;
-      // Calculate End Effector Velocity Here
-      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "End Effector Velocity (vx,vy,vz): ('%f','%f','%f')", end_effector_velocity[0], end_effector_velocity[1], end_effector_velocity[2]);
-    }
-    else
-    {
-      std::vector<std::double_t> joint_velocity;
-      // Calculate Joint Velocity Here from End Effector Velocity here
-      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Joint Velocity (vq1,vq2,vq3): ('%f','%f','%f')", joint_velocity[0], joint_velocity[1], joint_velocity[2]);
-      request_joint_velocity[0] = joint_velocity[0];
-      request_joint_velocity[1] = joint_velocity[1];
-      request_joint_velocity[2] = joint_velocity[2];
-    }
+    std::vector<std::double_t> joint_position = {
+        msg->position[0],
+        msg->position[1],
+        msg->position[2]};
 
     std::vector<std::double_t> joint_velocity = {
         msg->velocity[0],
         msg->velocity[1],
         msg->velocity[2]};
+
+    if (service_call_for_joint_velocity_control)
+    {
+      std::vector<std::double_t> end_effector_velocity; // x,y,z
+      end_effector_velocity[0] = (-0.9 * std::sin(joint_position[0]) * request_joint_velocity[0]) + (-0.95 * std::sin(joint_position[0] + joint_position[1]) * (request_joint_velocity[0] + request_joint_velocity[1]));
+      end_effector_velocity[1] = (0.9 * std::cos(joint_position[0]) * request_joint_velocity[0]) + (0.95 * std::cos(joint_position[0] + joint_position[1]) * (request_joint_velocity[0] + request_joint_velocity[1]));
+      end_effector_velocity[2] = request_joint_velocity[2];
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "End Effector Velocity (vx,vy,vz): ('%f','%f','%f')", end_effector_velocity[0], end_effector_velocity[1], end_effector_velocity[2]);
+    }
+    else
+    {
+      request_joint_velocity[0] = -(10 * (request_end_effector_velocity[0] * std::cos(joint_position[0] + joint_position[1]) + request_end_effector_velocity[1] * std::sin(joint_position[0] + joint_position[1]))) / (9 * (std::cos(joint_position[0] + joint_position[1]) * std::sin(joint_position[0]) - std::sin(joint_position[0] + joint_position[1]) * std::cos(joint_position[0])));
+      request_joint_velocity[1] = (10 * (19 * request_end_effector_velocity[0] * std::cos(joint_position[0] + joint_position[1]) + 19 * request_end_effector_velocity[1] * std::sin(joint_position[0] + joint_position[1]) + 18 * request_end_effector_velocity[0] * std::cos(joint_position[0]) + 18 * request_end_effector_velocity[1] * std::sin(joint_position[0]))) / (171 * (std::cos(joint_position[0] + joint_position[1]) * std::sin(joint_position[0]) - std::sin(joint_position[0] + joint_position[1]) * std::cos(joint_position[0])));
+      request_joint_velocity[2] = request_end_effector_velocity[2];
+      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Joint Velocity (vq1,vq2,vq3): ('%f','%f','%f')", request_joint_velocity[0], request_joint_velocity[1], request_joint_velocity[2]);
+    }
+
     std::vector<std::double_t> error = {
         joint_velocity[0] - request_joint_velocity[0],
         joint_velocity[1] - request_joint_velocity[1],
