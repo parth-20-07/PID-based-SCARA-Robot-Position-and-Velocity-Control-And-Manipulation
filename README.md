@@ -355,7 +355,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    ![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
 
-### **Joint Efforts Control Node**
+### **Joint Position Control Node**
 
 3. Launch the Joint Control Node using:
    ```
@@ -365,7 +365,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    $$u = -K_{p}*e_{x} - K_{d}*e_{v}$$
    where:
    - $e_{x}$ is position error: $e_{x} = x_{reference} - x_{current}$
-   - $e_{v}$ is velocity error: $e_{v} = v_{reference} - v_{current}$
+   - $e_{v}$ is rate of change of error: $e_{v} = v_{reference} - v_{current}$
 4. Call the Joint Control service using:
 
    ```
@@ -429,16 +429,94 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
       ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger%20Set%20Canvas.png)
 
 ## Assignment 3
+1. Compile the project by using the command:
+   ```
+   colcon build
+   ```
+2. Launch RRBOT in Gazebo using:
 
-# Tools Used
+   ```
+   ros2 launch rrbot_gazebo rrbot_world.launch.py
+   ```
 
-<img width="30px" align="left" alt="C" src="Resources/Logos/C Logo.jpeg">
-<img width="25px" align="left" alt="CPP" src="Resources/Logos/CPP Logo.jpeg">
-<img width="80px" align="left" alt="Git" src="Resources/Logos/Git Logo.jpeg">
-<img width="35px" align="left" alt="GitHub" src="Resources/Logos/GitHub Logo.jpeg">
-<img width="35px" align="left" alt="VS Code" src="Resources/Logos/VS Code.jpeg">
+   This will launch the Gazebo Window with the RRBOT spawned.
 
-<br><br>
+   ![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
+
+### **Velocity Control Node**
+
+3. Launch the Velocity Control Node using:
+   ```
+   ros2 run rrbot_gazebo end_eff_vel_control
+   ```
+   The control strategy used for the Velocity Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
+   $$u = -K_{p}*e_{v} - K_{d}*e_{a}$$
+   where:
+   - $e_{v}$ is position error: $e_{x} = x_{reference} - x_{current}$
+   - $e_{a}$ is rate of change of error: $e_{a} = \frac{e_{last_time} - e_{current}}{updatetime}$
+4. Velocity Control can be done in two way:
+   1. Joint Velocity Control: Here, the velocity of joint is directly controlled and the end effector moves accordingly
+
+   ```
+   ros2 service call /joint_velocity_service custom_interfaces/srv/SetJointVelocity "{vq1: 1, vq2: 0, vq3: 0}"
+   ```
+
+   2. End Effector Velocity Control: Here, the velocity of End Effector is set and accordingly the Robot Joint Velocity is calculated.
+   ```
+   ros2 service call /end_effector_velocity_service custom_interfaces/srv/SetEndEffectorVelocity "{vx: 1, vy: 0, vz: 0}"
+   ```
+
+   Right Click the Video below and open in new tab to see an example
+   <a href="https://youtu.be/P_8ERXKMxVg">
+      <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
+   </a>
+5. Echo the topic to see the reference Joint Position:
+   ```
+   ros2 topic echo /reference_joint_states/commands
+   ```
+6. We can visualize the efforts and joint states using PlotJuggler.
+   Launch Plot Juggler using the following:
+
+   ```
+   ros2 run plotjuggler plotjuggler
+   ```
+
+   Once the plot Juggler is launched, configure the system to view the joint data as follows:
+
+   1. Set the Streaming Tab for `ROS2 Topic Subscriber` and Buffer to `60` and press Start Button as shown:
+
+      ![Plot Juggler Streaming Tab](/Submissions/Group%20Project%202/PlotJuggler%20Streaming.png)
+
+   2. After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
+
+      ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%202/PlotJuggler%20Select%20Rosmessages.png)
+
+   3. Select the Following three topics from list:
+      1. `/forward_effort_controller/commands`
+      2. `/joint_states`
+      3. `/reference_joint_states/commands`
+   4. Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
+
+      ![Plot Juggler Canvas](/Submissions/Group%20Project%202/PlotJuggler%20Canvas.png)
+
+   5. Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
+
+      1. Canvas 1:
+         1. `/forward_effort_controller/commands/data.0`
+         2. `/joint_states/joint1/velocity`
+         3. `/reference_joint_states/commands/data.0`
+      2. Canvas 2:
+         1. `/forward_effort_controller/commands/data.1`
+         2. `/joint_states/joint2/velocity`
+         3. `/reference_joint_states/commands/data.1`
+      3. Canvas 3:
+         1. `/forward_effort_controller/commands/data.2`
+         2. `/joint_states/joint3/velocity`
+         3. `/reference_joint_states/commands/data.2`
+            The complete setup for visualization should look as below:
+
+      ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger%20Set%20Canvas.png)
+
 
 # Designer Details
 

@@ -12,6 +12,8 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/FindJointStates.srv"
   "srv/SetJointStates.srv"
+  "srv/SetEndEffectorVelocity.srv"
+  "srv/SetJointVelocity.srv"
 )
 
 if(BUILD_TESTING)

@@ -15,6 +15,9 @@ ament_target_dependencies(fkin_publisher rclcpp std_msgs sensor_msgs)
 add_executable(joint_effort_control src/joint_effort_controller.cpp)
 ament_target_dependencies(joint_effort_control rclcpp std_msgs sensor_msgs custom_interfaces)
 
+add_executable(end_eff_vel_control src/end_effector_velocity_controller.cpp)
+ament_target_dependencies(end_eff_vel_control rclcpp std_msgs sensor_msgs custom_interfaces)
+
 add_executable(switch_eff src/controller_effort_switch.cpp)
 ament_target_dependencies(switch_eff rclcpp controller_manager_msgs)
 
@@ -30,6 +33,7 @@ install(TARGETS
   switch_eff
   switch_vel
   joint_effort_control
+  end_eff_vel_control
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
