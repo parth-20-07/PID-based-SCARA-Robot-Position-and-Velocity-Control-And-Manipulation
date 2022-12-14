@@ -22,6 +22,9 @@ public:
   {
     joint_velocity_service_ = this->create_service<custom_interfaces::srv::SetJointVelocity>("joint_velocity_service", std::bind(&velocity_controller::set_joint_velocity_from_service, this, _1));
     end_effector_velocity_service_ = this->create_service<custom_interfaces::srv::SetEndEffectorVelocity>("end_effector_velocity_service", std::bind(&velocity_controller::set_end_effector_velocity_from_service, this, _1));
+    joint_state_subscriber_ = create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&velocity_controller::calculate_joint_efforts, this, _1));
+    velocity_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_effort_controller/commands", 10);
+    reference_value_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/reference_joint_states/commands", 10);
   }
 
 private:
@@ -29,14 +32,6 @@ private:
   {
     request_joint_velocity = {request->vq1, request->vq2, request->vq3};
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Request (vq1,vq2,vq3): ('%f','%f','%f')", request_joint_velocity[0], request_joint_velocity[1], request_joint_velocity[2]);
-    if (pub_sub_uninitialized_)
-    {
-      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Launching Publisher Subscribers");
-      joint_state_subscriber_ = create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&velocity_controller::calculate_joint_efforts, this, _1));
-      velocity_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_effort_controller/commands", 10);
-      reference_value_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/reference_joint_states/commands", 10);
-      pub_sub_uninitialized_ = false;
-    }
     service_call_for_joint_velocity_control = true;
   }
 
@@ -44,15 +39,6 @@ private:
   {
     request_end_effector_velocity = {request->vx, request->vy, request->vz};
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Request (vx,vy,vz): ('%f','%f','%f')", request_end_effector_velocity[0], request_end_effector_velocity[1], request_end_effector_velocity[2]);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Launching Publisher Subscribers");
-    if (pub_sub_uninitialized_)
-    {
-      RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Launching Publisher Subscribers");
-      joint_state_subscriber_ = create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&velocity_controller::calculate_joint_efforts, this, _1));
-      velocity_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/forward_velocity_controller/commands", 10);
-      reference_value_publisher_ = create_publisher<std_msgs::msg::Float64MultiArray>("/reference_joint_states/commands", 10);
-      pub_sub_uninitialized_ = false;
-    }
     service_call_for_joint_velocity_control = false;
   }
 
@@ -73,7 +59,8 @@ private:
 
     if (service_call_for_joint_velocity_control)
     {
-      std::vector<std::double_t> end_effector_velocity; // x,y,z
+      // This isn't used anywhere else currently... Need to allow it to actually affect outputs.
+      std::vector<std::double_t> end_effector_velocity = {0, 0, 0}; // x,y,z
       end_effector_velocity[0] = (-0.9 * std::sin(joint_position[0]) * request_joint_velocity[0]) + (-0.95 * std::sin(joint_position[0] + joint_position[1]) * (request_joint_velocity[0] + request_joint_velocity[1]));
       end_effector_velocity[1] = (0.9 * std::cos(joint_position[0]) * request_joint_velocity[0]) + (0.95 * std::cos(joint_position[0] + joint_position[1]) * (request_joint_velocity[0] + request_joint_velocity[1]));
       end_effector_velocity[2] = request_joint_velocity[2];
@@ -81,6 +68,7 @@ private:
     }
     else
     {
+      // Seems like request_end_effector_velocity should be in the portion above...
       request_joint_velocity[0] = -(10 * (request_end_effector_velocity[0] * std::cos(joint_position[0] + joint_position[1]) + request_end_effector_velocity[1] * std::sin(joint_position[0] + joint_position[1]))) / (9 * (std::cos(joint_position[0] + joint_position[1]) * std::sin(joint_position[0]) - std::sin(joint_position[0] + joint_position[1]) * std::cos(joint_position[0])));
       request_joint_velocity[1] = (10 * (19 * request_end_effector_velocity[0] * std::cos(joint_position[0] + joint_position[1]) + 19 * request_end_effector_velocity[1] * std::sin(joint_position[0] + joint_position[1]) + 18 * request_end_effector_velocity[0] * std::cos(joint_position[0]) + 18 * request_end_effector_velocity[1] * std::sin(joint_position[0]))) / (171 * (std::cos(joint_position[0] + joint_position[1]) * std::sin(joint_position[0]) - std::sin(joint_position[0] + joint_position[1]) * std::cos(joint_position[0])));
       request_joint_velocity[2] = request_end_effector_velocity[2];
@@ -137,8 +125,8 @@ private:
   bool pub_sub_uninitialized_ = true;
   bool service_call_for_joint_velocity_control = true;
   size_t count_;
-  std::vector<std::double_t> request_joint_velocity;
-  std::vector<std::double_t> request_end_effector_velocity;
+  std::vector<std::double_t> request_joint_velocity = {0, 0, 0};
+  std::vector<std::double_t> request_end_effector_velocity = {0, 0, 0};
   std::vector<std::double_t> last_iteration_joint_error = {0, 0, 0};
   std::vector<std::double_t> apply_joint_efforts = {0, 0, 9.8};
   std::uint64_t begin, end;
