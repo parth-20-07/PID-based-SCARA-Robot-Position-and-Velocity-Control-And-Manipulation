@@ -58,5 +58,11 @@ syms q1_dot q2_dot q3_dot 'real'
 joint_velocities = [q1_dot; q2_dot; q3_dot];
 twist = jacobian_matrix * joint_velocities;
 display(twist);
-inv_jacobian = inv(jacobian_matrix);
+
+inv_jacobian = simplify(inv(jacobian_matrix(1:3, 1:3)));
 display(inv_jacobian);
+
+syms vx vy vz 'real'
+twist_input = [vx; vy; vz];
+joint_vel_output = simplify(inv_jacobian*twist_input);
+display(joint_vel_output);
