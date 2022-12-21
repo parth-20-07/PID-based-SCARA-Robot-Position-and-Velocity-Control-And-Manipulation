@@ -1,30 +1,34 @@
-# Table of Contents
+<!-- TOC -->
 
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [How to setup the project](#how-to-setup-the-project)
-  - [Install ROS2 Humble Hawksbill](#install-ros2-humble-hawksbill)
-  - [Environment Setup](#environment-setup)
-  - [Gazebo Installation Tutorials](#gazebo-installation-tutorials)
-  - [Simulation](#simulation)
-  - [PlotJuggler](#plotjuggler)
+    - [Install ROS2 Humble Hawksbill](#install-ros2-humble-hawksbill)
+    - [Environment Setup](#environment-setup)
+    - [Gazebo Installation Tutorials](#gazebo-installation-tutorials)
+    - [Simulation](#simulation)
+    - [PlotJuggler](#plotjuggler)
 - [How to use the project](#how-to-use-the-project)
-  - [Assignment 1](#assignment-1)
-    - [**Forward Kinematics Node**](#forward-kinematics-node)
-    - [**Inverse Kinematics Node**](#inverse-kinematics-node)
-  - [Assignment 2](#assignment-2)
-    - [**Joint Efforts Control Node**](#joint-efforts-control-node)
-  - [Assignment 3](#assignment-3)
-- [Tools Used](#tools-used)
+    - [Assignment 1](#assignment-1)
+        - [**Forward Kinematics Node**](#forward-kinematics-node)
+        - [**Inverse Kinematics Node**](#inverse-kinematics-node)
+    - [Assignment 2](#assignment-2)
+        - [**Joint Position Control Node**](#joint-position-control-node)
+    - [Assignment 3](#assignment-3)
+        - [**Velocity Control Node**](#velocity-control-node)
+- [Understanding the Assignment](#understanding-the-assignment)
+    - [Assignment 1: Forward Kinematics Node](#assignment-1-forward-kinematics-node)
+        - [position_publisher.cpp](#position_publishercpp)
+- [TODO](#todo)
 - [Designer Details](#designer-details)
+
+<!-- /TOC -->
 
 # Introduction
 
 The aim of the assignment is meant to get a better understanding of basic concepts of Robotics using tools like [ROS2 Humble Hawksbill](https://docs.ros.org/en/humble/index.html), [Gazebo Sim](https://gazebosim.org/home), [RVIZ](https://github.com/ros2/rviz) and [MathWorks&#174; MATLAB](https://www.mathworks.com/products/matlab.html)
-
 The final project is divided into three seperate assignments:
 
-1. Assignment 1: Build Model URDF, Forward Kinematics Node and Inverse Kinematics Node.
+1. **Assignment 1:** Build Model URDF, Forward Kinematics Node and Inverse Kinematics Node.
    1. Setup the dynamically accurate model of robot in Gazebo by editing the model URDF.
    2. Calculate the DH Parameters of the Robot to build a node that:
       1. Subscribes to the joint states of the robot and calculates the Pose of the robot by using Forward Kinematics.
@@ -32,16 +36,23 @@ The final project is divided into three seperate assignments:
    3. Create an Inverse Kinematics Calculation Node that:
       1. Uses a custom service to take input of the (x,y,z) coordinates of the robot end-effector.
       2. Calculate the Joint States from the end-effector position and return it as a response to the service.
-2. Assignment 2: Build a node to control Joint States.
-   1. Create a node that takes:
-      1. Reference Values for Joint States as input through a service.
-      2. Build a Proportional-Derivative Controller that takes the current Joint States and Reference joint state to publish the control torque values to the **/forward_effort_controller/commands** topic.
-      3. Ensure that the model reaches the reference joint states in Gazebo.
-3. Assignment 3:
 
-_Note: This project is designed on Ubuntu 22.04 LTS and not tested on any other platforms_
+2. **Assignment 2:** Build a node to control Joint States.
+   1. Create a node that takes Reference Values for Joint Position as input through a service.
+   2. Build a Proportional-Derivative Controller that takes the current Joint States and Reference joint state to publish the control torque values to the **/forward_effort_controller/commands** topic.
+   3. Ensure that the model reaches the reference joint states in Gazebo.
 
-_Super Note: Remember, If anything doesnt work as it is supposed to, just use the rules of IT. Close it and restart it again :)_
+3. **Assignment 3:** Build a node to control Joint or End-Effector Velocity.
+   1. Create a node with 2 services:
+      1. Service 1 takes Joint Velocity as input to convert it to End-Effector Velocity as output.
+      2. Service 2 takes End-Effector Velocity as input to convert it to Joint Velocity as ouput.
+   2. Based on the input, build a Proportional-Derivative controller that takes the current Joint Velocity and the Reference Joint Velocity to publish the torque values to the **forward_effort_controller/commands** topic.
+   3. Ensure that the model reaches the desired end-effector or joint velocity in Gazebo.
+
+
+🗒 _**Note:** This project is designed on Ubuntu 22.04 LTS and not tested on any other platforms_
+
+⚠ _**Warning:** Remember, If anything doesnt work as it is supposed to, just use the rules of IT. Close it and restart it again_ :smiley:
 
 # How to setup the project
 
@@ -51,7 +62,7 @@ _Super Note: Remember, If anything doesnt work as it is supposed to, just use th
 
 Make sure you have a locale which supports `UTF-8`. If you are in a minimal environment (such as a docker container), the locale may be something minimal like `POSIX`. We test with the following settings. However, it should be fine if you’re using a different UTF-8 supported locale.
 
-```
+```bash
 locale  # check for UTF-8
 
 sudo apt update && sudo apt install locales
@@ -68,21 +79,21 @@ You will need to add the ROS 2 apt repository to your system.
 
 First ensure that the [Ubuntu Universe repository](https://help.ubuntu.com/community/Repositories/Ubuntu) is enabled.
 
-```
+```bash
 sudo apt install software-properties-common
 sudo add-apt-repository universe
 ```
 
 Now add the ROS 2 GPG key with apt.
 
-```
+```bash
 sudo apt update && sudo apt install curl
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 ```
 
 Then add the repository to your sources list.
 
-```
+```bash
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 ```
 
@@ -90,19 +101,19 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 
 Update your apt repository caches after setting up the repositories.
 
-```
+```bash
 sudo apt update
 ```
 
 ROS 2 packages are built on frequently updated Ubuntu systems. It is always recommended that you ensure your system is up to date before installing new packages.
 
-```
+```bash
 sudo apt upgrade
 ```
 
 Desktop Install (Recommended): ROS, RViz, demos, tutorials.
 
-```
+```bash
 sudo apt install ros-humble-desktop -y
 ```
 
@@ -112,7 +123,7 @@ sudo apt install ros-humble-desktop -y
 
 Set up your environment by sourcing the following file.
 
-```
+```bash
 echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
 
@@ -120,14 +131,14 @@ echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
 The [ROS project](https://www.ros.org/) hosts copies of the Debian packages in their apt repositories.
 
-```
+```bash
 sudo sh -c 'echo "deb [arch=amd64,arm64] http://repo.ros2.org/ubuntu/main `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 ```
 
 After that you can install the Debian package which depends on `colcon-core` as well as commonly used extension packages (see [setup.cfg](https://github.com/colcon/colcon-common-extensions/blob/master/setup.cfg)).
 
-```
+```bash
 sudo apt update
 sudo apt install python3-colcon-common-extensions
 ```
@@ -140,26 +151,26 @@ In this tutorial we will install Gazebo 11 and all its supporting files that wil
 
 Use the following commands to install Gazebo and its supplementry files
 
-```
+```bash
 sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
 wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 ```
 
 Once this is done, update using and make sure it runs without any errors
 
-```
+```bash
 sudo apt-get update
 ```
 
 Now install Gazebo using
 
-```
+```bash
 sudo apt-get install gazebo libgazebo-dev
 ```
 
 You can check your installation by running this in a new terminal
 
-```
+```bash
 gazebo
 ```
 
@@ -167,13 +178,13 @@ gazebo
 
 To use Gazebo with ROS2, there are certain packages that need to be installed
 
-```
+```bash
 sudo apt install ros-humble-gazebo-ros-pkgs
 ```
 
 Now we will install simulated robot controllers
 
-```
+```bash
 sudo apt-get install ros-humble-ros2-control ros-humble-ros2-controllers
 sudo apt-get install ros-humble-gazebo-ros2-control ros-humble-xacro
 sudo apt-get install ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui
@@ -186,14 +197,16 @@ Now your system is ready to simulate any robot.
 Before doing `colcon build` we have to install some dependencies for the package to function correctly.
 Run the following commands in terminal
 
-```
+```bash
 sudo apt install python3-pip
 sudo pip3 install transforms3d
 ```
 
 These are optional steps just to make sure everything is alright:
 
-- Please find the zipped package that has one of many ways to spawn an URDF in Gazebo using ROS2. The true and unedited files can be found in the directory: `/Resources/Group Project 1/rrbot_simulation_files.zip`
+- Please find the zipped package that has one of many ways to spawn an URDF in Gazebo using ROS2. The unedited files can be found in the directory:
+
+   `/Resources/Group Project 1/rrbot_simulation_files.zip`
 - Extract the package to your `/src`.
 
 Once you have successfully installed all the required packages, find the supporting zip file that contains rrbot simulation files.
@@ -207,7 +220,6 @@ That zip file contains 2 packages:
   Xacro has been used instead of URDF to keep the description more modular, you will find that the main file _rrbot.urdf.xacro_ includes a bunch of different files, so you don't have to deal with a very large file.
   The important files for us are _rrbot.gazebo.xacro_ and _rrbot.ros2_control.xacro_, these contains the configuration for ROS2 Control.
   Visit this link for understanding how to configure ros2 control for your robot: https://github.com/ros-controls/gazebo_ros2_control
-
 - **rrbot_gazebo:**
   This package launches the actual simulation environment.
   The _gazebo_controllers.yaml_ file in _config_ helps us define what kind of controller we want to use, here we are using a **forward_command_controller** that just takes the command and applies it as it is, we have selected position as the command interface, i.e. we will control the position of the joints, reset all will be calculated by the controller. We can also use velocity or effort (torque) as the command interface.
@@ -220,20 +232,20 @@ The launch folder contains a launch file **rrbot_world.launch.py** which will be
 
 In the main folder run the following commands:
 
-```
+```bash
 colcon build --symlink-install
 . install/setup.bash
 ```
 
 As we are using some gazebo plugins for camera, we need to source the gazebo setup bash file too
 
-```
+```bash
 echo ". /usr/share/gazebo/setup.bash" >> ~/.bashrc
 ```
 
 Now open a new terminal to launch rrbot in gazebo and run
 
-```
+```bash
 ros2 launch rrbot_gazebo rrbot_world.launch.py
 ```
 
@@ -243,7 +255,7 @@ _/joint_states_ : This topic will have the robot's current state, i.e. position,
 _/forward_position_controller/commands_ : This is the control topic, this will be used to control the robot joints
 _/camera1/image_raw_ : On this topic the robot will publish the camera feed, to visualize what the camera is seeing we can use rviz2.
 
-_Note: This can also result in your system getting hanged for a few minutes, this is just a first time thing and please don't kill the node if this happens, average hang-time is around 2-3 mins, if it goes above 10 mins kill the launch file._
+🗒 _**Note:** This can also result in your system getting hanged for a few minutes, this is just a first time thing and please don't kill the node if this happens, average hang-time is around 2-3 mins, if it goes above 10 mins kill the launch file._
 
 ## [PlotJuggler](https://www.plotjuggler.io/)
 
@@ -253,20 +265,20 @@ Installation of Plot Juggler is pretty simple. Since we are using ROS2 Humble, w
 
 Install the Plot Juggler using the command:
 
-```
+```bash
 sudo apt-get install ros-humble-plotjuggler-ros
 ```
 
 And we are all done with Plot Juggler Installation.
 
-<br>
 
 # How to use the project
 
 ## Assignment 1
 
 1. Compile the project by using the command:
-   ```
+
+   ```bash
    colcon build
    ```
 
@@ -274,7 +286,7 @@ And we are all done with Plot Juggler Installation.
 
 2. Launch the RVIZ model in a new terminal using:
 
-   ```
+   ```bash
    ros2 launch rrbot_description view_robot.launch.py
    ```
 
@@ -282,13 +294,14 @@ And we are all done with Plot Juggler Installation.
 
    1. Rviz Model Window:
       ![RViz Model Window](/Submissions/Group%20Project%201/RVIZ%20Window.png)
+
    2. Joint Publisher Model:
 
       ![Joint State Publisher Window](/Submissions/Group%20Project%201/Joint%20State%20Publisher%20Window.png)
 
 3. In a new Terminal, Launch the Forward Kinematics node using:
 
-   ```
+   ```bash
    ros2 run rrbot_gazebo fkin_publisher
    ```
 
@@ -298,7 +311,7 @@ And we are all done with Plot Juggler Installation.
 
 4. In a new Terminal, Echo the Forward Kinematics Topic using
 
-   ```
+   ```bash
    ros2 topic echo /forward_position_controller/commands
    ```
 
@@ -307,9 +320,9 @@ And we are all done with Plot Juggler Installation.
    ![FKIN Topic Echo](/Submissions/Group%20Project%201/FKIN%20Topic%20Echo.png)
 
    The x coordinates is displayed at line 4.
-
+   
    The y coordinates is displayed at line 8.
-
+   
    The z coordinates is displayed at line 12.
 
 5. Move around the sliders in the _Joint State Publisher_ Window to see the End Effector Position change.
@@ -319,12 +332,14 @@ And we are all done with Plot Juggler Installation.
 The Inverse Kinematics Node works on a server service node setup. The user can type the end-effector pose after launching the server node and request node to calculate the Joint States using a Service Call.
 
 6. In a new terminal (_You can close all other terminals if you wish to_), Launch the Inverse Kinematics Server Node using:
-   ```
+
+   ```bash
    ros2 run rrbot_gazebo ikin_publisher
    ```
+
 7. In a new terminal launch the service using
 
-   ```
+   ```bash
    ros2 service call /inverse_kinematics custom_interfaces/srv/FindJointStates "{x: 1, y: 0, z: 2}"
    ```
 
@@ -336,18 +351,20 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    The service results two sets of possible response:
 
-   - (q11, q21, q31)
-   - (q12, q22, q32)
+   - $(q_{11}, q_{21}, q_{31})$
+   - $(q_{12}, q_{22}, q_{32})$
 
 ## Assignment 2
 
 1. Compile the project by using the command:
-   ```
+
+   ```bash
    colcon build
    ```
+
 2. Launch RRBOT in Gazebo using:
 
-   ```
+   ```bash
    ros2 launch rrbot_gazebo rrbot_world.launch.py
    ```
 
@@ -358,34 +375,47 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 ### **Joint Position Control Node**
 
 3. Launch the Joint Control Node using:
-   ```
+
+   ```bash
    ros2 run rrbot_gazebo joint_effort_control
    ```
+
    The control strategy used for the Joint Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
-   $$u = -K_{p}*e_{x} - K_{d}*e_{v}$$
+
+   $$
+   u = -K_{p}*e - K_{d}*\dot{e}
+   $$
+
    where:
-   - $e_{x}$ is position error: $e_{x} = x_{reference} - x_{current}$
-   - $e_{v}$ is rate of change of error: $e_{v} = v_{reference} - v_{current}$
+
+   - $e$ is position error: $e = \theta_{r} - \theta$
+   - $\dot{e}$ is rate of change of error: $\dot{e} = \frac{e_{t}-e_{t-1}}{\delta{t}}$
+
 4. Call the Joint Control service using:
 
-   ```
+   ```bash
    ros2 service call /joint_state_controller custom_interfaces/srv/SetJointStates '{rq1: 1, rq2: 2, rq3: 2}'
    ```
 
    Change the Joint States by trying different values for (rq1,rq2,rq3)
 
    Right Click the Video below and open in new tab to see an example
-   <a href="https://youtu.be/P_8ERXKMxVg">
+   
+	<a href="https://youtu.be/P_8ERXKMxVg">
       <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
    </a>
+   
 5. Echo the topic to see the reference Joint Position:
-   ```
+
+   ```bash
    ros2 topic echo /reference_joint_states/commands
    ```
+
 6. We can visualize the efforts and joint states using PlotJuggler.
+   
    Launch Plot Juggler using the following:
 
-   ```
+   ```bash
    ros2 run plotjuggler plotjuggler
    ```
 
@@ -400,6 +430,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
       ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%202/PlotJuggler%20Select%20Rosmessages.png)
 
    3. Select the Following three topics from list:
+
       1. `/forward_effort_controller/commands`
       2. `/joint_states`
       3. `/reference_joint_states/commands`
@@ -424,18 +455,22 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
          2. `/joint_states/joint3/position`
          3. `/joint_states/joint3/velocity`
          4. `/reference_joint_states/commands/data.2`
-            The complete setup for visualization should look as below:
+
+      The complete setup for visualization should look as below:
 
       ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger%20Set%20Canvas.png)
 
 ## Assignment 3
+
 1. Compile the project by using the command:
-   ```
+
+   ```bash
    colcon build
    ```
+
 2. Launch RRBOT in Gazebo using:
 
-   ```
+   ```bash
    ros2 launch rrbot_gazebo rrbot_world.launch.py
    ```
 
@@ -446,38 +481,46 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 ### **Velocity Control Node**
 
 3. Launch the Velocity Control Node using:
-   ```
+
+   ```bash
    ros2 run rrbot_gazebo end_eff_vel_control
    ```
+
    The control strategy used for the Velocity Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
-   $$u = -K_{p}*e_{v} - K_{d}*e_{a}$$
+
+   $$
+   u = -K_{p}*e - K_{d}\dot{e}
+   $$
+
    where:
-   - $e_{v}$ is position error: $e_{x} = x_{reference} - x_{current}$
-   - $e_{a}$ is rate of change of error: $e_{a} = \frac{e_{last_time} - e_{current}}{updatetime}$
+
+   - $e$ is position error: $e = \dot{\theta_{r}} - \dot{\theta}$
+   - $\dot{e}$ is rate of change of error: $\dot{e} = \frac{e_{t} - e_{t-1}}{\delta{t}}$
+
 4. Velocity Control can be done in two way:
+
    1. Joint Velocity Control: Here, the velocity of joint is directly controlled and the end effector moves accordingly
 
-   ```
+   ```bash
    ros2 service call /joint_velocity_service custom_interfaces/srv/SetJointVelocity "{vq1: 1, vq2: 0, vq3: 0}"
    ```
 
    2. End Effector Velocity Control: Here, the velocity of End Effector is set and accordingly the Robot Joint Velocity is calculated.
-   ```
+
+   ```bash
    ros2 service call /end_effector_velocity_service custom_interfaces/srv/SetEndEffectorVelocity "{vx: 1, vy: 0, vz: 0}"
    ```
 
-   Right Click the Video below and open in new tab to see an example
-   <a href="https://youtu.be/P_8ERXKMxVg">
-      <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
-   </a>
 5. Echo the topic to see the reference Joint Position:
-   ```
+
+   ```bash
    ros2 topic echo /reference_joint_states/commands
    ```
+
 6. We can visualize the efforts and joint states using PlotJuggler.
    Launch Plot Juggler using the following:
 
-   ```
+   ```bash
    ros2 run plotjuggler plotjuggler
    ```
 
@@ -486,15 +529,17 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
    1. Set the Streaming Tab for `ROS2 Topic Subscriber` and Buffer to `60` and press Start Button as shown:
 
       ![Plot Juggler Streaming Tab](/Submissions/Group%20Project%202/PlotJuggler%20Streaming.png)
-
+ 
    2. After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
 
       ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%202/PlotJuggler%20Select%20Rosmessages.png)
-
+ 
    3. Select the Following three topics from list:
+
       1. `/forward_effort_controller/commands`
       2. `/joint_states`
       3. `/reference_joint_states/commands`
+
    4. Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
 
       ![Plot Juggler Canvas](/Submissions/Group%20Project%202/PlotJuggler%20Canvas.png)
@@ -513,10 +558,142 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
          1. `/forward_effort_controller/commands/data.2`
          2. `/joint_states/joint3/velocity`
          3. `/reference_joint_states/commands/data.2`
-            The complete setup for visualization should look as below:
+		The complete setup for visualization should look as below:
 
       ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger%20Set%20Canvas.png)
 
+   6. The setup would plot graphs as shown
+
+      ![Velocity Control 1](/Submissions/Group%20Project%203/Velocity%20Graph%201.png)
+
+      ![Velocity Control 2](/Submissions/Group%20Project%203/Velocity%20Graph%202.png)
+
+# Understanding the Assignment
+
+## Assignment 1: Forward Kinematics Node
+
+### position_publisher.cpp
+
+This node is the Forward Kinematics Node. It takes **Joint Position** as input and calculates **End Effector Pose** using it.
+
+Include Essential File Headers
+
+```cpp
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
+#include <math.h> /* round, floor, ceil, trunc */
+
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
+```
+
+Generating a Forward Kinematics Publisher Node
+```cpp
+rclcpp::spin(std::make_shared<FKin_Publisher>());
+```
+
+Define Robot Physical Parameters
+```cpp
+std::double_t l1 = 1, l2 = 1, ao = 0.05, lb = 1;
+```
+
+Create a subscriber that recieves **Joint States** from `/joint_states` and publishes the **Robot Pose** to `/forward_position_controller/commands`.
+
+```cpp
+rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr fkin_publisher_;
+rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscriber_;
+```
+
+The publisher is binded to the callback function `void topic_callback(const sensor_msgs::msg::JointState::SharedPtr msg) const` using the `std::bind(&FKin_Publisher::topic_callback, this, _1)` command.
+
+```cpp
+FKin_Publisher() : Node("minimal_publisher"), count_(0)
+{
+   fkin_publisher_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/forward_position_controller/commands", 10);
+   joint_state_subscriber_ = this->create_subscription<sensor_msgs::msg::JointState>("/joint_states", 10, std::bind(&FKin_Publisher::topic_callback, this, _1));
+}
+```
+
+The callback function is called everytime the **Joint State** subscriber recieves new Joint Values.
+
+```cpp
+void topic_callback(const sensor_msgs::msg::JointState::SharedPtr msg) const
+```
+
+The Joint Position is stored in a Vector array
+
+```cpp
+std::vector<std::double_t> joint_states = {msg->position[0],msg->position[1],msg->position[2]};
+std::cout << joint_states[0] << "," << joint_states[1] << "," << joint_states[2] << std::endl;
+```
+
+Pose $(T)$ is calculated using the `joint states` using the formula
+
+```math
+T=
+\begin{bmatrix}
+cos(\theta_{1}+\theta_{2})&-sin(\theta_{1}+\theta_{2})&0&cos(\theta_{1}+\theta_{2})+0.9cos(\theta_{1})\\
+sin(\theta_{1}+\theta_{2})&cos(\theta_{1}+\theta_{2})&0&sin(\theta_{1}+\theta_{2})+0.9sin(\theta_{1})\\
+0&0&1&d_{3}+2.1\\
+0&0&0&1
+\end{bmatrix}
+```
+
+```cpp
+std::double_t pose[4][4] =
+   {
+      {{cos(joint_states[1] + joint_states[0])},{-sin(joint_states[1] + joint_states[0])},{(0)},{cos(joint_states[1] + joint_states[0]) + (9 * cos(joint_states[0])) / 10},},
+      {{sin(joint_states[1] + joint_states[0])},{cos(joint_states[1] + joint_states[0])},{(0)},{sin(joint_states[1] + joint_states[0]) + (9 * sin(joint_states[0])) / 10},},
+      {{(0)},{(0)},{(1)},{2.1 - joint_states[2]},},
+      {{(0)},{(0)},{(0)},{(1)},}
+   };
+```
+
+A variable is created in `Float64MultiArray` format which is a 1D-vector with the information of how it should be structured to act as a multidimensional array. It is done by defining the `width` and `height` of the array as shown
+```cpp
+std_msgs::msg::Float64MultiArray message;
+message.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
+message.layout.dim[0].label = "width";
+message.layout.dim[0].size = 4;
+message.layout.dim[0].stride = 4 * 4;
+message.layout.dim[1].label = "height";
+message.layout.dim[1].size = 4;
+message.layout.dim[1].stride = 4;
+message.layout.data_offset = 0;
+```
+
+In order to remove any garbage data, we first fill the message variable with null value.
+```cpp
+message.data.clear();
+```
+
+We flaten the pose variable to be copied into the publishing variable and copy the data
+```cpp
+std::vector<double_t> vec(16, 0);
+for (size_t i = 0; i < 4; i++)
+for (size_t j = 0; j < 4; j++)
+   vec[(i * 4) + j] = pose[i][j];
+message.data = vec;
+```
+
+The data is published on the topic as set before.
+
+```cpp
+RCLCPP_INFO(this->get_logger(), "Publishing...");
+fkin_publisher_->publish(message);
+```
+
+# TODO
+
+- [ ] Properly make the assignment 3 documentation in **how to use the project**
+- [ ] Generate plots for assignment 3 for **how to use the project**
+- [ ] Make the code explaination for Assignment 1
+- [ ] Make the code explaination for Assignment 2
+- [ ] Make the code explaination for Assignment 3
 
 # Designer Details
 
