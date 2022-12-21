@@ -18,6 +18,9 @@
 - [Understanding the Assignment](#understanding-the-assignment)
     - [Assignment 1: Forward Kinematics Node](#assignment-1-forward-kinematics-node)
         - [position_publisher.cpp](#position_publishercpp)
+    - [Assignment 2: Inverse Kinematics Node](#assignment-2-inverse-kinematics-node)
+        - [FindJointStates.srv](#findjointstatessrv)
+        - [joint_state_publisher.cpp](#joint_state_publishercpp)
 - [TODO](#todo)
 - [Designer Details](#designer-details)
 
@@ -675,8 +678,8 @@ We flaten the pose variable to be copied into the publishing variable and copy t
 ```cpp
 std::vector<double_t> vec(16, 0);
 for (size_t i = 0; i < 4; i++)
-for (size_t j = 0; j < 4; j++)
-   vec[(i * 4) + j] = pose[i][j];
+   for (size_t j = 0; j < 4; j++)
+      vec[(i * 4) + j] = pose[i][j];
 message.data = vec;
 ```
 
@@ -686,6 +689,117 @@ The data is published on the topic as set before.
 RCLCPP_INFO(this->get_logger(), "Publishing...");
 fkin_publisher_->publish(message);
 ```
+
+## Assignment 2: Inverse Kinematics Node
+
+### FindJointStates.srv
+
+The task of the service file is to define the input and output data type of the service.
+
+Here we take $x,y,z$ as input and return $q_{11},q_{12},q_{13},q_{21},q_{22},q_{23}$ as output. Both are of type `float64`. The input and output is seperated by `---` between them.
+
+```python
+float64 x
+float64 y
+float64 z
+---
+float64 q11
+float64 q21
+float64 q31
+float64 q12
+float64 q22
+float64 q32
+```
+
+### joint_state_publisher.cpp
+
+Including with essential headers.
+
+```cpp
+#include "custom_interfaces/srv/find_joint_states.hpp"
+#include "rclcpp/rclcpp.hpp"
+#include <bits/stdc++.h>
+#include <math.h>
+#include <memory>
+```
+
+The node with name `inverse_kinematics_server` is generated and the service with name `inverse_kinematics` is attached to it.
+
+The service calls the `void add(const std::shared_ptr<custom_interfaces::srv::FindJointStates::Request> request, std::shared_ptr<custom_interfaces::srv::FindJointStates::Response> response)` function when it is initiated.
+
+```cpp
+std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("inverse_kinematics_server");
+rclcpp::Service<custom_interfaces::srv::FindJointStates>::SharedPtr service = node->create_service<custom_interfaces::srv::FindJointStates>("inverse_kinematics", &add);
+```
+
+We round the input $x,y,z$ coordinates to 2 decimal places first and store it in variables.
+```cpp
+std::double_t x = round(request->x * 100) / 100; // x component of the end effector pose
+std::double_t y = round(request->y * 100) / 100; // y component of the end effector pose
+std::double_t z = round(request->z * 100) / 100; // z component of the end effector pose
+```
+
+We check for the values of $x,y,z$ where robot cannot reach or will face singularity. We quit the node if it is not possible to calculate the solution.
+
+```cpp
+if (std::sqrt((x * x) + (y * y)) > 2)
+{
+   RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "XY Values out of Bound");
+   solution_possible = false;
+}
+if (x == 0 && y == 0)
+{
+   RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "XY Values not reachable. Detected Singularity");
+   solution_possible = false;
+}
+if (z > 2.1 || z < 0)
+{
+   RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Z Value out of Bound");
+   solution_possible = false;
+}
+if (!solution_possible)
+   return;
+```
+
+We define the Robot Parameters
+
+```cpp
+std::double_t lb = 2;   // length of the base of the robot
+std::double_t l1 = 0.9; // length of first link
+std::double_t l2 = 1;   // length of second link
+std::double_t l3 = 2.2; // length of third link
+```
+
+We calculate the Joint Position using Geometrical Approach. This is done using the lambda function in cpp
+
+```cpp
+std::double_t q1_1, q1_2, q2_1, q2_2;
+std::double_t q3 = lb + 0.1 - z; // prismatic joint displacement
+
+double cos_of_q2 = (pow(x, 2) + pow(y, 2) - pow(l1, 2) - pow(l2, 2)) / (2 * l1 * l2);
+auto get_q2 = [=](bool is_positive, double cos_of_q2)
+{ return atan2((is_positive ? 1 : -1) * sqrt(1 - pow(cos_of_q2, 2)), cos_of_q2); };
+q2_1 = get_q2(true, cos_of_q2);
+q2_2 = get_q2(false, cos_of_q2);
+auto get_q1 = [=](double q2)
+{ return atan2(y, x) - atan2(l2 * sin(q2), l1 + (l2 * cos(q2))); };
+q1_1 = get_q1(q2_1);
+q1_2 = get_q1(q2_2);
+```
+
+The calculated Joint Position is rounded to 2 decimal places before submitting the response
+
+```cpp
+// allocating the joint values to the server response
+response->q11 = round(q1_1 * 100) / 100;
+response->q21 = round(q2_1 * 100) / 100;
+response->q31 = round(q3 * 100) / 100;
+
+response->q12 = round(q1_2 * 100) / 100;
+response->q22 = round(q2_2 * 100) / 100;
+response->q32 = round(q3 * 100) / 100;
+```
+
 
 # TODO
 
