@@ -385,9 +385,9 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    The control strategy used for the Joint Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
 
-   $$
+   ```math
       u = -K_{p}*e - K_{d}*\dot{e}
-   $$
+   ```
 
    where:
 
@@ -491,9 +491,9 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    The control strategy used for the Velocity Control Strategy is PD Control. The system is broken down into individual joints where each joint has it's own control system. This strategy divides the whole system into 3 individual SISO System allowing us to tune Kp and Kd parameters individually.
 
-   $$
-   u = -K_{p}*e - K_{d}\dot{e}
-   $$
+   ```math
+      u = -K_{p}*e - K_{d}\dot{e}
+   ```
 
    where:
 
