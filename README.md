@@ -987,8 +987,8 @@ rclcpp::shutdown();
 system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
 ```
 
-🥳 _Ladies and Gentlemen!!_ 
-🥳 _Hope you have a good day!!_
+🥳 _Ladies and Gentlemen!!_ \
+🥳 _Hope you have a good day!!_\
 🥳 _We are all done with the project here!!_
 
 # Designer Details
