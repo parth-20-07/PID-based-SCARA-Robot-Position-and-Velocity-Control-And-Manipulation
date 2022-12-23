@@ -24,7 +24,6 @@
     - [Assignment 2: Joint Position Control](#assignment-2-joint-position-control)
         - [SetJointStates.srv](#setjointstatessrv)
         - [joint_effort_controller.cpp](#joint_effort_controllercpp)
-- [TODO](#todo)
 - [Designer Details](#designer-details)
 
 <!-- /TOC -->
@@ -988,13 +987,9 @@ rclcpp::shutdown();
 system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/Float64MultiArray 'data: [0,0,0]'");
 ```
 
-# TODO
-
-- [x] Properly make the assignment 3 documentation in **how to use the project**
-- [x] Generate plots for assignment 3 for **how to use the project**
-- [x] Make the code explaination for Assignment 1
-- [x] Make the code explaination for Assignment 2
-- [ ] Make the code explaination for Assignment 3
+🥳 _Ladies and Gentlemen!!_ 
+🥳 _Hope you have a good day!!_
+🥳 _We are all done with the project here!!_
 
 # Designer Details
 
