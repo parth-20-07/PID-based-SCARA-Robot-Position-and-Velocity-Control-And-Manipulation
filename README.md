@@ -22,6 +22,7 @@
         - [FindJointStates.srv](#findjointstatessrv)
         - [joint_state_publisher.cpp](#joint_state_publishercpp)
     - [Assignment 2: Joint Position Control](#assignment-2-joint-position-control)
+        - [SetJointStates.srv](#setjointstatessrv)
         - [joint_effort_controller.cpp](#joint_effort_controllercpp)
 - [TODO](#todo)
 - [Designer Details](#designer-details)
@@ -497,7 +498,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    where:
 
-   - $e$ is position error: $e = \dot{\theta_{r}} - \dot{\theta}$
+   - $e$ is velocity error: $e = \dot{\theta_{r}} - \dot{\theta}$
    - $\dot{e}$ is rate of change of error: $\dot{e} = \frac{e_{t} - e_{t-\delta{t}}}{\delta{t}}$
 
 4. Velocity Control can be done in two way:
@@ -520,13 +521,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
       <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
    </a>
 
-5. Echo the topic to see the reference Joint Position:
-
-   ```bash
-   ros2 topic echo /reference_joint_states/commands
-   ```
-
-6. We can visualize the efforts and joint states using PlotJuggler.
+5. We can visualize the efforts and joint states using PlotJuggler.
    Launch Plot Juggler using the following:
 
    ```bash
@@ -626,7 +621,7 @@ rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscr
 
 We need a publisher and subscriber for our operation.
 - `fkin_publisher` : This publisher is used to publish the calculated pose from the recieved joint states.
-- `joint_state_subscriber` : The subscriber subscribes to the `/joint_states` topic and the is binded to the callback function `void topic_callback(const sensor_msgs::msg::JointState::SharedPtr msg) const` using the `std::bind(&FKin_Publisher::topic_callback, this, _1)` command.
+- `joint_state_subscriber` : The subscriber subscribes to the `/joint_states` topic and the is binded to the callback function `void topic_callback(...) const` using the `std::bind(&FKin_Publisher::topic_callback, this, _1)` command.
 
 ```cpp
 FKin_Publisher() : Node("minimal_publisher"), count_(0)
@@ -743,7 +738,7 @@ Including with essential headers.
 
 The node with name `inverse_kinematics_server` is generated and the service with name `inverse_kinematics` is attached to it.
 
-The service calls the `void add(const std::shared_ptr<custom_interfaces::srv::FindJointStates::Request> request, std::shared_ptr<custom_interfaces::srv::FindJointStates::Response> response)` function when it is initiated.
+The service calls the `void add(...)` function when it is initiated.
 
 ```cpp
 std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("inverse_kinematics_server");
@@ -821,6 +816,19 @@ response->q32 = round(q3 * 100) / 100;
 
 ## Assignment 2: Joint Position Control
 
+### SetJointStates.srv
+
+The task of the service file is to define the input and output data type of the service.
+
+Here we take $q_{1},q_{2},q_{3}$ as input of type `float64`. The input and output is seperated by `---` between them. Since we don't have any return for this service file, the output end is kept empty. The output is displayed directly in the terminal live as the position is being achieved.
+
+```python
+float64 rq1
+float64 rq2
+float64 rq3
+---
+```
+
 ### joint_effort_controller.cpp
 
 Include the required header files.
@@ -859,10 +867,10 @@ system("ros2 topic pub --once /forward_effort_controller/commands std_msgs/msg/F
 rclcpp::spin(node);
 ```
 
-1 service, 1 subscriber and 2 publisher are created for our usage.
+The following components are created for our usage.
 
-- `service_` : Generate a service with name `joint_state_controller` to recieve Target Joint Position from User. The service calls the `recieve_reference_joint_position_from_service(const std::shared_ptr<custom_interfaces::srv::SetJointStates::Request> request)` function everytime user sends the value via service call.
-- `joint_state_subscriber` : Subscriber to read the joint states (position and velocity) published by the gazebo robot on `/joint_states` topic. The subscriber is binded to `void calculate_joint_efforts(const sensor_msgs::msg::JointState::SharedPtr msg)` function which is called everytime the subscriber recieves joint states.
+- `service_` : Generate a service with name `joint_state_controller` to recieve Target Joint Position from User. The service calls the `recieve_reference_joint_position_from_service(...)` function everytime user sends the value via service call.
+- `joint_state_subscriber` : Subscriber to read the joint states (position and velocity) published by the gazebo robot on `/joint_states` topic. The subscriber is binded to `void calculate_joint_efforts(...)` function which is called everytime the subscriber recieves joint states.
 - `efforts_publisher` : Publishes the calculated joint efforts to the topic `/forward_effort_controller/commands` so the gazebo robot can implement it.
 - `reference_value_publisher` : Takes the reference joint values from `service_` and publishes it on topic `/reference_joint_states/commands` so that it can be used to plot on graph.
 
