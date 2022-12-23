@@ -57,9 +57,7 @@ private:
           joint_position[0] - reference_position[0],
           joint_position[1] - reference_position[1],
           joint_position[2] - reference_position[2]};
-      apply_joint_efforts[0] = 0;
-      apply_joint_efforts[1] = 0;
-      apply_joint_efforts[2] = 9.8;
+      apply_joint_efforts = {0, 0, 9.8};
 
       if (abs(error[0]) > acceptable_error) // Joint 1
         apply_joint_efforts[0] = -(proportional_gain[0] * error[0]) - (derivative_gain[0] * joint_velocity[0]);
