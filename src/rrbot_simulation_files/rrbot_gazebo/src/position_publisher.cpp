@@ -61,6 +61,7 @@ private:
 
     std_msgs::msg::Float64MultiArray message;
     message.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
+    message.layout.dim.push_back(std_msgs::msg::MultiArrayDimension());
     message.layout.dim[0].label = "width";
     message.layout.dim[0].size = 4;
     message.layout.dim[0].stride = 4 * 4;
