@@ -2,28 +2,28 @@
 
 - [Introduction](#introduction)
 - [How to setup the project](#how-to-setup-the-project)
-    - [Install ROS2 Humble Hawksbill](#install-ros2-humble-hawksbill)
-    - [Environment Setup](#environment-setup)
-    - [Gazebo Installation Tutorials](#gazebo-installation-tutorials)
-    - [Simulation](#simulation)
-    - [PlotJuggler](#plotjuggler)
+  - [Install ROS2 Humble Hawksbill](#install-ros2-humble-hawksbill)
+  - [Environment Setup](#environment-setup)
+  - [Gazebo Installation Tutorials](#gazebo-installation-tutorials)
+  - [Simulation](#simulation)
+  - [PlotJuggler](#plotjuggler)
 - [How to use the project](#how-to-use-the-project)
-    - [Assignment 1](#assignment-1)
-        - [**Forward Kinematics Node**](#forward-kinematics-node)
-        - [**Inverse Kinematics Node**](#inverse-kinematics-node)
-    - [Assignment 2](#assignment-2)
-        - [**Joint Position Control Node**](#joint-position-control-node)
-    - [Assignment 3](#assignment-3)
-        - [**Velocity Control Node**](#velocity-control-node)
+  - [Assignment 1](#assignment-1)
+    - [**Forward Kinematics Node**](#forward-kinematics-node)
+    - [**Inverse Kinematics Node**](#inverse-kinematics-node)
+  - [Assignment 2](#assignment-2)
+    - [**Joint Position Control Node**](#joint-position-control-node)
+  - [Assignment 3](#assignment-3)
+    - [**Velocity Control Node**](#velocity-control-node)
 - [Understanding the Assignment](#understanding-the-assignment)
-    - [Assignment 1: Forward Kinematics Node](#assignment-1-forward-kinematics-node)
-        - [position_publisher.cpp](#position_publishercpp)
-    - [Assignment 1: Inverse Kinematics Node](#assignment-1-inverse-kinematics-node)
-        - [FindJointStates.srv](#findjointstatessrv)
-        - [joint_state_publisher.cpp](#joint_state_publishercpp)
-    - [Assignment 2: Joint Position Control](#assignment-2-joint-position-control)
-        - [SetJointStates.srv](#setjointstatessrv)
-        - [joint_effort_controller.cpp](#joint_effort_controllercpp)
+  - [Assignment 1: Forward Kinematics Node](#assignment-1-forward-kinematics-node)
+    - [position_publisher.cpp](#position_publishercpp)
+  - [Assignment 1: Inverse Kinematics Node](#assignment-1-inverse-kinematics-node)
+    - [FindJointStates.srv](#findjointstatessrv)
+    - [joint_state_publisher.cpp](#joint_state_publishercpp)
+  - [Assignment 2: Joint Position Control](#assignment-2-joint-position-control)
+    - [SetJointStates.srv](#setjointstatessrv)
+    - [joint_effort_controller.cpp](#joint_effort_controllercpp)
 - [Designer Details](#designer-details)
 - [License](#license)
 
@@ -300,11 +300,12 @@ And we are all done with Plot Juggler Installation.
    This will launch a Rviz windows which shows the robot model along with a a small window titled **Joint State Publisher** with three sliders to control three joints.
 
    1. Rviz Model Window:
-      ![RViz Model Window](/Submissions/Group%20Project%201/RVIZ%20Window.png)
 
-   2. Joint Publisher Model:
+![RViz Model Window](/Submissions/Group%20Project%201/RVIZ%20Window.png)
 
-      ![Joint State Publisher Window](/Submissions/Group%20Project%201/Joint%20State%20Publisher%20Window.png)
+2.  Joint Publisher Model:
+
+![Joint State Publisher Window](/Submissions/Group%20Project%201/Joint%20State%20Publisher%20Window.png)
 
 3. In a new Terminal, Launch the Forward Kinematics node using:
 
@@ -324,13 +325,13 @@ And we are all done with Plot Juggler Installation.
 
    The output data will be displayed as follows:
 
-   ![FKIN Topic Echo](/Submissions/Group%20Project%201/FKIN%20Topic%20Echo.png)
+![FKIN Topic Echo](/Submissions/Group%20Project%201/FKIN%20Topic%20Echo.png)
 
-   The x coordinates is displayed at line 4.
+The x coordinates is displayed at line 4.
 
-   The y coordinates is displayed at line 8.
+The y coordinates is displayed at line 8.
 
-   The z coordinates is displayed at line 12.
+The z coordinates is displayed at line 12.
 
 5. Move around the sliders in the _Joint State Publisher_ Window to see the End Effector Position change.
 
@@ -354,12 +355,12 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    The service Call will return the output in following format:
 
-   ![IKIN Service Call](/Submissions/Group%20Project%201/Ikin%20Service%20Call.png)
+![ikin-service-call](./Submissions/Group%20Project%201/Ikin%20Service%20Call.png)
 
-   The service results two sets of possible response:
+The service results two sets of possible response:
 
-   - $(q_{11}, q_{21}, q_{31})$
-   - $(q_{12}, q_{22}, q_{32})$
+- $(q_{11}, q_{21}, q_{31})$
+- $(q_{12}, q_{22}, q_{32})$
 
 ## Assignment 2
 
@@ -377,7 +378,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    This will launch the Gazebo Window with the RRBOT spawned.
 
-   ![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
+![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
 
 ### **Joint Position Control Node**
 
@@ -406,9 +407,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    Right Click the Video below and open in new tab to see an example
 
-   <a href="https://youtu.be/P_8ERXKMxVg">
-      <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
-   </a>
+[![position-control-animation](https://img.youtube.com/vi/P_8ERXKMxVg/0.jpg)](https://www.youtube.com/watch?v=P_8ERXKMxVg)
 
 5. Echo the topic to see the reference Joint Position:
 
@@ -428,43 +427,43 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    1. Set the Streaming Tab for `ROS2 Topic Subscriber` and Buffer to `60` and press Start Button as shown:
 
-      ![Plot Juggler Streaming Tab](/Submissions/Group%20Project%202/PlotJuggler%20Streaming.png)
+![Plot-Juggler-Streaming-Tab](./Submissions/Group%20Project%202/PlotJuggler%20Streaming.png)
 
-   2. After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
+2.  After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
 
-      ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%202/PlotJuggler%20Select%20Rosmessages.png)
+![Plot-Juggler-ROS-Messages-Tab](./Submissions/Group%20Project%202/PlotJuggler%20Select%20Rosmessages.png)
 
-   3. Select the Following three topics from list:
+3.  Select the Following three topics from list:
 
-      1. `/forward_effort_controller/commands`
-      2. `/joint_states`
-      3. `/reference_joint_states/commands`
+    1. `/forward_effort_controller/commands`
+    2. `/joint_states`
+    3. `/reference_joint_states/commands`
 
-   4. Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
+4.  Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
 
-      ![Plot Juggler Canvas](/Submissions/Group%20Project%202/PlotJuggler%20Canvas.png)
+![Plot-Juggler-Canvas](./Submissions/Group%20Project%202/PlotJuggler%20Canvas.png)
 
-   5. Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
+5.  Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
 
-      1. Canvas 1:
-         1. `/forward_effort_controller/commands/data.0`
-         2. `/joint_states/joint1/position`
-         3. `/joint_states/joint1/velocity`
-         4. `/reference_joint_states/commands/data.0`
-      2. Canvas 2:
-         1. `/forward_effort_controller/commands/data.1`
-         2. `/joint_states/joint2/position`
-         3. `/joint_states/joint2/velocity`
-         4. `/reference_joint_states/commands/data.1`
-      3. Canvas 3:
-         1. `/forward_effort_controller/commands/data.2`
-         2. `/joint_states/joint3/position`
-         3. `/joint_states/joint3/velocity`
-         4. `/reference_joint_states/commands/data.2`
+    1. Canvas 1:
+       1. `/forward_effort_controller/commands/data.0`
+       2. `/joint_states/joint1/position`
+       3. `/joint_states/joint1/velocity`
+       4. `/reference_joint_states/commands/data.0`
+    2. Canvas 2:
+       1. `/forward_effort_controller/commands/data.1`
+       2. `/joint_states/joint2/position`
+       3. `/joint_states/joint2/velocity`
+       4. `/reference_joint_states/commands/data.1`
+    3. Canvas 3:
+       1. `/forward_effort_controller/commands/data.2`
+       2. `/joint_states/joint3/position`
+       3. `/joint_states/joint3/velocity`
+       4. `/reference_joint_states/commands/data.2`
 
-      The complete setup for visualization should look as below:
+    The complete setup for visualization should look as below:
 
-      ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%202/PlotJugger%20Set%20Canvas.png)
+![Plot-Juggler-Complete-Set-Canvas](./Submissions/Group%20Project%202/PlotJugger%20Set%20Canvas.png)
 
 ## Assignment 3
 
@@ -482,7 +481,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    This will launch the Gazebo Window with the RRBOT spawned.
 
-   ![RRBOT Gazebo Spawn](/Submissions/Group%20Project%202/Gazebo%20Model.png)
+![RRBOT-Gazebo-Spawn](./Submissions/Group%20Project%202/Gazebo%20Model.png)
 
 ### **Velocity Control Node**
 
@@ -517,9 +516,7 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    Right Click the Video below and open in new tab to see an example
 
-   <a href="https://youtu.be/9PSvphjH7cQ">
-      <img src="/Submissions/Group%20Project%202/Gazebo%20Model.png" width="480" />
-   </a>
+[![velocity-control-sim](https://img.youtube.com/vi/9PSvphjH7cQ/0.jpg)](https://www.youtube.com/watch?v=9PSvphjH7cQ)
 
 5. We can visualize the efforts and joint states using PlotJuggler.
    Launch Plot Juggler using the following:
@@ -532,50 +529,50 @@ The Inverse Kinematics Node works on a server service node setup. The user can t
 
    1. Set the Streaming Tab for `ROS2 Topic Subscriber` and Buffer to `60` and press Start Button as shown:
 
-      ![Plot Juggler Streaming Tab](/Submissions/Group%20Project%202/PlotJuggler%20Streaming.png)
+![Plot-Juggler-Streaming-Tab](./Submissions/Group%20Project%202/PlotJuggler%20Streaming.png)
 
-   2. After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
+2.  After pressing the Start Button a new window will pop up with all the available topics labelled `Select ROS messages`
 
-      ![Plot Juggler ROS Messages Tab](/Submissions/Group%20Project%203/PlotJuggler%20Select%20Rosmessages.png)
+![Plot-Juggler-ROS-Messages-Tab](./Submissions/Group%20Project%203/PlotJuggler%20Select%20Rosmessages.png)
 
-   3. Select the Following three topics from list:
+3.  Select the Following three topics from list:
 
-      1. `/forward_effort_controller/commands`
-      2. `/joint_states`
-      3. `/reference_velocities/end_effector`
-      4. `/reference_velocities/joints`
+    1. `/forward_effort_controller/commands`
+    2. `/joint_states`
+    3. `/reference_velocities/end_effector`
+    4. `/reference_velocities/joints`
 
-   4. Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
+4.  Right Click on the `tab1 canvas` and Select `Split Horizontally` twice so you get a layout as shown below:
 
-      ![Plot Juggler Canvas](/Submissions/Group%20Project%202/PlotJuggler%20Canvas.png)
+![Plot-Juggler-Canvas](./Submissions/Group%20Project%202/PlotJuggler%20Canvas.png)
 
-   5. Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
+5.  Drag and Drop the Following Topics in each Canvas from the Publishers Tab:
 
-      1. Canvas 1:
-         1. `/forward_effort_controller/commands/data.0`
-         2. `/joint_states/joint1/velocity`
-         3. `/reference_velocities/end_effector/data.0`
-         4. `/reference_velocities/joints/data.0`
-      2. Canvas 2:
-         1. `/forward_effort_controller/commands/data.1`
-         2. `/joint_states/joint2/velocity`
-         3. `/reference_velocities/end_effector/data.1`
-         4. `/reference_velocities/joints/data.1`
-      3. Canvas 3:
-         1. `/forward_effort_controller/commands/data.2`
-         2. `/joint_states/joint3/velocity`
-         3. `/reference_velocities/end_effector/data.2`
-         4. `/reference_velocities/joints/data.2`
+    1. Canvas 1:
+       1. `/forward_effort_controller/commands/data.0`
+       2. `/joint_states/joint1/velocity`
+       3. `/reference_velocities/end_effector/data.0`
+       4. `/reference_velocities/joints/data.0`
+    2. Canvas 2:
+       1. `/forward_effort_controller/commands/data.1`
+       2. `/joint_states/joint2/velocity`
+       3. `/reference_velocities/end_effector/data.1`
+       4. `/reference_velocities/joints/data.1`
+    3. Canvas 3:
+       1. `/forward_effort_controller/commands/data.2`
+       2. `/joint_states/joint3/velocity`
+       3. `/reference_velocities/end_effector/data.2`
+       4. `/reference_velocities/joints/data.2`
 
-      The complete setup for visualization should look as below:
+    The complete setup for visualization should look as below:
 
-      ![Plot Juggler Complete Set Canvas](/Submissions/Group%20Project%203/PlotJuggler%20Set%20Canvas.png)
+![Plot-Juggler-Complete-Set-Canvas](./Submissions/Group%20Project%203/PlotJuggler%20Set%20Canvas.png)
 
-   6. The setup would plot graphs as shown
+6.  The setup would plot graphs as shown
 
-      ![Velocity Control 1](/Submissions/Group%20Project%203/Velocity%20Graph%201.png)
+![Velocity-Control-1](./Submissions/Group%20Project%203/Velocity%20Graph%201.png)
 
-      ![Velocity Control 2](/Submissions/Group%20Project%203/Velocity%20Graph%202.png)
+![Velocity-Control-2](./Submissions/Group%20Project%203/Velocity%20Graph%202.png)
 
 # Understanding the Assignment
 
@@ -620,6 +617,7 @@ rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_state_subscr
 ```
 
 We need a publisher and subscriber for our operation.
+
 - `fkin_publisher` : This publisher is used to publish the calculated pose from the recieved joint states.
 - `joint_state_subscriber` : The subscriber subscribes to the `/joint_states` topic and the is binded to the callback function `void topic_callback(...) const` using the `std::bind(&FKin_Publisher::topic_callback, this, _1)` command.
 
@@ -901,7 +899,7 @@ void recieve_reference_joint_position_from_service(const std::shared_ptr<custom_
 }
 ```
 
-`calculate_joint_efforts` function though called everytime `joint_state_subscriber` recieves the joint states, yet it is only effective once the `command_received` variable changes to `true`. 
+`calculate_joint_efforts` function though called everytime `joint_state_subscriber` recieves the joint states, yet it is only effective once the `command_received` variable changes to `true`.
 
 🤔 _I Know! There are much better solution that the one we have implemented. But yeah!! **It is what it is!** We couldn't think of a smarter solution at **3 AM in the morning!!**_
 
@@ -967,11 +965,12 @@ efforts_publisher_->publish(message);
 ```
 
 Design Assumptions:
+
 - Acceptable Error = $0.0001 m$
 - Proportional Derivative (PD) Gains:
-   - Joint 1 $(K_{p1},K_{d1}) = (15,17)$
-   - Joint 2 $(K_{p2},K_{d2}) = (9.5,9.5)$
-   - Joint 3 $(K_{p3},K_{d3}) = (491,60)$
+  - Joint 1 $(K_{p1},K_{d1}) = (15,17)$
+  - Joint 2 $(K_{p2},K_{d2}) = (9.5,9.5)$
+  - Joint 3 $(K_{p3},K_{d3}) = (491,60)$
 
 The tuning gains are high for Joint 3 primarily due to the fact that the Joint 3 is prismatic and along the direction of gravitational force causing it to need additional force to counteract the gravity. Opposite to it, Joint 1 and Joint 2 are revolute and working in direction perpendicular to gravity, thus, being able to operate with lowered applied torque.
 
